@@ -11,10 +11,16 @@ const wss = new WebSocket.Server({ server });
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+app.use(express.static(__dirname));
 
 // Broadcast message helper
 function broadcast(payload) {
@@ -27,7 +33,6 @@ function broadcast(payload) {
 }
 
 // REST API Endpoints
-
 // Get schedule for month
 app.get('/api/schedule', async (req, res) => {
   const { month } = req.query;
@@ -46,44 +51,37 @@ app.post('/api/schedule/update', async (req, res) => {
   if (!monthKey || !category || !name || !day) {
     return res.status(400).json({ error: "Missing required fields" });
   }
-
   try {
     const updateResult = await db.updateCell(monthKey, category, name, day, status, border);
     if (!updateResult) {
       return res.status(404).json({ error: "Doctor not found or invalid category" });
     }
-
-    // Generate Hebrew descriptions of values for logs
     const statusLabels = {
-      ward: 'מחלקה', clinic: 'מרפאה', off: 'חופש', daytreat: 'ט.יום', radio: 'רדיותרפיה',
-      basic: 'מדעי יסוד', scopuscl: 'מרפאה הר הצופים', elective: 'אלקטיב', postcall: 'אחרי תורנות',
-      augusta: 'אוגוסטה', scopusday: 'אשפוז יום הר הצופים', shabbat: 'שישי/שבת', internal: 'פנימית',
-      postcallfri: 'אחרי תורנות שישי', research: 'מחקר', reserve: 'מילואים', weoff: 'סוף שבוע'
+      ward: '\u05de\u05d7\u05dc\u05e7\u05d4', clinic: '\u05de\u05e8\u05e4\u05d0\u05d4', off: '\u05d7\u05d5\u05e4\u05e9', daytreat: '\u05d8.\u05d9\u05d5\u05dd', radio: '\u05e8\u05d3\u05d9\u05d5\u05ea\u05e8\u05e4\u05d9\u05d4',
+      basic: '\u05de\u05d3\u05e2\u05d9 \u05d9\u05e1\u05d5\u05d3', scopuscl: '\u05de\u05e8\u05e4\u05d0\u05d4 \u05d4\u05e8 \u05d4\u05e6\u05d5\u05e4\u05d9\u05dd', elective: '\u05d0\u05dc\u05e7\u05d8\u05d9\u05d1', postcall: '\u05d0\u05d7\u05e8\u05d9 \u05ea\u05d5\u05e8\u05e0\u05d5\u05ea',
+      augusta: '\u05d0\u05d5\u05d2\u05d5\u05e1\u05d8\u05d4', scopusday: '\u05d0\u05e9\u05e4\u05d5\u05d6 \u05d9\u05d5\u05dd \u05d4\u05e8 \u05d4\u05e6\u05d5\u05e4\u05d9\u05dd', shabbat: '\u05e9\u05d9\u05e9\u05d9/\u05e9\u05d1\u05ea', internal: '\u05e4\u05e0\u05d9\u05de\u05d9\u05ea',
+      postcallfri: '\u05d0\u05d7\u05e8\u05d9 \u05ea\u05d5\u05e8\u05e0\u05d5\u05ea \u05e9\u05d9\u05e9\u05d9', research: '\u05de\u05d7\u05e7\u05e8', reserve: '\u05de\u05d9\u05dc\u05d5\u05d0\u05d9\u05dd', weoff: '\u05e1\u05d5\u05e3 \u05e9\u05d1\u05d5\u05e2'
     };
     const borderLabels = {
-      none: 'ללא', oncall: 'תורן 🔴', halfoncall: 'תורן חצי 🟡',
-      er_standby: 'כונן מיון ⬛', ward_standby: 'כונן מחלקה ⬜'
+      none: '\u05dc\u05dc\u05d0', oncall: '\u05ea\u05d5\u05e8\u05df \ud83d\udd34', halfoncall: '\u05ea\u05d5\u05e8\u05df \u05d7\u05e6\u05d9 \ud83d\udfe1',
+      er_standby: '\u05db\u05d5\u05e0\u05df \u05de\u05d9\u05d5\u05df \u2b1b', ward_standby: '\u05db\u05d5\u05e0\u05df \u05de\u05d7\u05dc\u05e7\u05d4 \u2b1c'
     };
-
     let changeParts = [];
     if (status !== undefined && updateResult.previous.s !== updateResult.current.s) {
       const prevL = statusLabels[updateResult.previous.s] || updateResult.previous.s;
       const currL = statusLabels[updateResult.current.s] || updateResult.current.s;
-      changeParts.push(`מיקום מ-"${prevL}" ל-"${currL}"`);
+      changeParts.push(`\u05de\u05d9\u05e7\u05d5\u05dd \u05de-"${prevL}" \u05dc-"${currL}"`);
     }
     if (border !== undefined && updateResult.previous.b !== updateResult.current.b) {
       const prevB = borderLabels[updateResult.previous.b] || updateResult.previous.b;
       const currB = borderLabels[updateResult.current.b] || updateResult.current.b;
-      changeParts.push(`תפקיד מ-"${prevB}" ל-"${currB}"`);
+      changeParts.push(`\u05ea\u05e4\u05e7\u05d9\u05d3 \u05de-"${prevB}" \u05dc-"${currB}"`);
     }
-
     let notif = null;
     if (changeParts.length > 0) {
       const changeText = changeParts.join(', ');
       notif = await db.addNotification(name, monthKey, day, changeText);
     }
-
-    // Broadcast cell update to other clients
     broadcast({
       type: 'cell_update',
       data: {
@@ -96,7 +94,6 @@ app.post('/api/schedule/update', async (req, res) => {
         notification: notif
       }
     });
-
     res.json({ success: true, cell: updateResult.current, notification: notif });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -109,13 +106,11 @@ app.post('/api/staff/add', async (req, res) => {
   if (!monthKey || !category || !name) {
     return res.status(400).json({ error: "Missing required fields" });
   }
-
   try {
     const success = await db.addDoctor(monthKey, category, name);
     if (!success) {
       return res.status(400).json({ error: "Doctor already exists or invalid category" });
     }
-
     broadcast({ type: 'roster_update', data: { monthKey } });
     res.json({ success: true });
   } catch (e) {
@@ -129,13 +124,11 @@ app.post('/api/staff/remove', async (req, res) => {
   if (!monthKey || !name) {
     return res.status(400).json({ error: "Missing required fields" });
   }
-
   try {
     const success = await db.removeDoctor(monthKey, name);
     if (!success) {
       return res.status(404).json({ error: "Doctor not found" });
     }
-
     broadcast({ type: 'roster_update', data: { monthKey } });
     res.json({ success: true });
   } catch (e) {
@@ -167,10 +160,7 @@ app.post('/api/reset', async (req, res) => {
 
 // Handle WebSocket connection
 wss.on('connection', ws => {
-  // console.log("WebSocket client connected");
-  
   ws.on('message', message => {
-    // We can handle incoming client websocket queries if needed in the future
     try {
       const parsed = JSON.parse(message);
       if (parsed.type === 'ping') {
@@ -178,9 +168,7 @@ wss.on('connection', ws => {
       }
     } catch(e) {}
   });
-
   ws.on('close', () => {
-    // console.log("WebSocket client disconnected");
   });
 });
 
