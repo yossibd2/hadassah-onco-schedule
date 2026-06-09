@@ -41,6 +41,7 @@
   </header>
 
   <div class="container">
+    <div id="birthdayBannerContainer"></div>
     
     <!-- Top Level Dashboard & Statistics -->
     <div class="dashboard-grid">
@@ -65,7 +66,11 @@
     <section class="personal-panel-card" id="personalPanel">
       <div class="panel-header">
         <h2>📅 הלוח האישי שלי</h2>
-        <div class="panel-user-display" id="panelUserDisplay"></div>
+        <div class="panel-actions">
+          <div class="panel-user-display" id="panelUserDisplay"></div>
+          <button class="btn-outline-primary" id="exportIcsBtn" onclick="exportToICS()" style="display:none;">📅 ייצוא ליומן</button>
+          <button class="btn-outline-primary" id="requestBtn" onclick="openRequestModal()" style="display:none;">📨 שליחת בקשה</button>
+        </div>
       </div>
       
       <div class="panel-grid">
@@ -92,9 +97,9 @@
     <!-- Main Navigation Tabs -->
     <div class="tabs-navigation">
       <div class="tabs">
-        <button id="tab-seniors" class="tab active" onclick="switchTab('seniors')">👨‍⚕️ בכירים ומומחים</button>
-        <button id="tab-resident" class="tab" onclick="switchTab('resident')">📚 מתמחים - מדיקל</button>
-        <button id="tab-all" class="tab" onclick="switchTab('all')">📊 כולם</button>
+        <button id="tab-seniors" class="tab" onclick="switchTab('seniors')">👨‍⚕️ בכירים ומומחים</button>
+        <button id="tab-resident" class="tab" onclick="switchTab('resident')">📚 מתמחים</button>
+        <button id="tab-all" class="tab active" onclick="switchTab('all')">📊 כולם</button>
       </div>
       
       <div class="table-legend-toggle" onclick="toggleLegend()">
@@ -130,6 +135,11 @@
         </select>
         <p class="form-help">הבחירה תישמר בדפדפן זה והלוח האישי שלך ייטען אוטומטית בכל כניסה.</p>
       </div>
+
+      <div class="form-group" style="margin-top: 15px;">
+        <label for="userEmailInp">כתובת אימייל לקבלת התראות:</label>
+        <input type="email" id="userEmailInp" placeholder="doctor@example.com">
+      </div>
       
       <div class="modal-btns">
         <button class="btn-cancel" onclick="closeModal('settingsModal')">ביטול</button>
@@ -138,7 +148,41 @@
     </div>
   </div>
 
+  <!-- Request Modal -->
+  <div class="modal-overlay" id="requestModal">
+    <div class="modal">
+      <h2>📨 שליחת בקשה חדשה</h2>
+      
+      <div class="form-group">
+        <label for="reqType">סוג הבקשה:</label>
+        <select id="reqType">
+          <option value="חופש">הודעה על חופש</option>
+          <option value="מילואים">מילואים</option>
+          <option value="חילוף שיבוץ">חילוף שיבוץ</option>
+          <option value="החלפת תורנות">החלפת תורנות</option>
+          <option value="אחר">אחר</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="reqDay">יום (1-31, אופציונלי):</label>
+        <input type="number" id="reqDay" min="1" max="31" placeholder="למשל: 15">
+      </div>
+
+      <div class="form-group">
+        <label for="reqDetails">פרטים והסבר:</label>
+        <textarea id="reqDetails" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--border); border-radius:8px; background:var(--bg); color:var(--text-main); font-family:inherit; outline:none; resize:vertical;" placeholder="פירוט הבקשה (שם הרופא/ה להחלפה, ימי חופש מדויקים וכד')"></textarea>
+      </div>
+      
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeModal('requestModal')">ביטול</button>
+        <button class="btn-primary" onclick="submitRequest()">שלח בקשה ✓</button>
+      </div>
+    </div>
+  </div>
+
   <!-- JavaScript Application Controller -->
+  <script src="holidays.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

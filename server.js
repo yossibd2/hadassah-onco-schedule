@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
+const fs = require('fs');
 const db = require('./db');
 
 const app = express();
@@ -12,15 +13,15 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+// Determine static file directory: use 'public' subfolder if it exists, otherwise root
+const publicDir = fs.existsSync(path.join(__dirname, 'public')) 
+  ? path.join(__dirname, 'public') 
+  : __dirname;
 
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
+  res.sendFile(path.join(publicDir, 'admin.html'));
 });
-
-app.use(express.static(__dirname));
+app.use(express.static(publicDir));
 
 // Broadcast message helper
 function broadcast(payload) {
@@ -33,6 +34,7 @@ function broadcast(payload) {
 }
 
 // REST API Endpoints
+
 // Get schedule for month
 app.get('/api/schedule', async (req, res) => {
   const { month } = req.query;
@@ -51,37 +53,44 @@ app.post('/api/schedule/update', async (req, res) => {
   if (!monthKey || !category || !name || !day) {
     return res.status(400).json({ error: "Missing required fields" });
   }
+
   try {
     const updateResult = await db.updateCell(monthKey, category, name, day, status, border);
     if (!updateResult) {
       return res.status(404).json({ error: "Doctor not found or invalid category" });
     }
+
+    // Generate Hebrew descriptions of values for logs
     const statusLabels = {
-      ward: '\u05de\u05d7\u05dc\u05e7\u05d4', clinic: '\u05de\u05e8\u05e4\u05d0\u05d4', off: '\u05d7\u05d5\u05e4\u05e9', daytreat: '\u05d8.\u05d9\u05d5\u05dd', radio: '\u05e8\u05d3\u05d9\u05d5\u05ea\u05e8\u05e4\u05d9\u05d4',
-      basic: '\u05de\u05d3\u05e2\u05d9 \u05d9\u05e1\u05d5\u05d3', scopuscl: '\u05de\u05e8\u05e4\u05d0\u05d4 \u05d4\u05e8 \u05d4\u05e6\u05d5\u05e4\u05d9\u05dd', elective: '\u05d0\u05dc\u05e7\u05d8\u05d9\u05d1', postcall: '\u05d0\u05d7\u05e8\u05d9 \u05ea\u05d5\u05e8\u05e0\u05d5\u05ea',
-      augusta: '\u05d0\u05d5\u05d2\u05d5\u05e1\u05d8\u05d4', scopusday: '\u05d0\u05e9\u05e4\u05d5\u05d6 \u05d9\u05d5\u05dd \u05d4\u05e8 \u05d4\u05e6\u05d5\u05e4\u05d9\u05dd', shabbat: '\u05e9\u05d9\u05e9\u05d9/\u05e9\u05d1\u05ea', internal: '\u05e4\u05e0\u05d9\u05de\u05d9\u05ea',
-      postcallfri: '\u05d0\u05d7\u05e8\u05d9 \u05ea\u05d5\u05e8\u05e0\u05d5\u05ea \u05e9\u05d9\u05e9\u05d9', research: '\u05de\u05d7\u05e7\u05e8', reserve: '\u05de\u05d9\u05dc\u05d5\u05d0\u05d9\u05dd', weoff: '\u05e1\u05d5\u05e3 \u05e9\u05d1\u05d5\u05e2'
+      ward: 'מחלקה', clinic: 'מרפאה', off: 'חופש', daytreat: 'ט.יום', radio: 'רדיותרפיה',
+      basic: 'מדעי יסוד', scopuscl: 'מרפאה הר הצופים', elective: 'אלקטיב', postcall: 'אחרי תורנות',
+      augusta: 'אוגוסטה', scopusday: 'אשפוז יום הר הצופים', shabbat: 'שישי/שבת', internal: 'פנימית',
+      postcallfri: 'אחרי תורנות שישי', research: 'מחקר', reserve: 'מילואים', weoff: 'סוף שבוע'
     };
     const borderLabels = {
-      none: '\u05dc\u05dc\u05d0', oncall: '\u05ea\u05d5\u05e8\u05df \ud83d\udd34', halfoncall: '\u05ea\u05d5\u05e8\u05df \u05d7\u05e6\u05d9 \ud83d\udfe1',
-      er_standby: '\u05db\u05d5\u05e0\u05df \u05de\u05d9\u05d5\u05df \u2b1b', ward_standby: '\u05db\u05d5\u05e0\u05df \u05de\u05d7\u05dc\u05e7\u05d4 \u2b1c'
+      none: 'ללא', oncall: 'תורן 🔴', halfoncall: 'תורן חצי 🟡',
+      er_standby: 'כונן מיון ⬛', ward_standby: 'כונן מחלקה ⬜'
     };
+
     let changeParts = [];
     if (status !== undefined && updateResult.previous.s !== updateResult.current.s) {
       const prevL = statusLabels[updateResult.previous.s] || updateResult.previous.s;
       const currL = statusLabels[updateResult.current.s] || updateResult.current.s;
-      changeParts.push(`\u05de\u05d9\u05e7\u05d5\u05dd \u05de-"${prevL}" \u05dc-"${currL}"`);
+      changeParts.push(`מיקום מ-"${prevL}" ל-"${currL}"`);
     }
     if (border !== undefined && updateResult.previous.b !== updateResult.current.b) {
       const prevB = borderLabels[updateResult.previous.b] || updateResult.previous.b;
       const currB = borderLabels[updateResult.current.b] || updateResult.current.b;
-      changeParts.push(`\u05ea\u05e4\u05e7\u05d9\u05d3 \u05de-"${prevB}" \u05dc-"${currB}"`);
+      changeParts.push(`תפקיד מ-"${prevB}" ל-"${currB}"`);
     }
+
     let notif = null;
     if (changeParts.length > 0) {
       const changeText = changeParts.join(', ');
       notif = await db.addNotification(name, monthKey, day, changeText);
     }
+
+    // Broadcast cell update to other clients
     broadcast({
       type: 'cell_update',
       data: {
@@ -94,6 +103,7 @@ app.post('/api/schedule/update', async (req, res) => {
         notification: notif
       }
     });
+
     res.json({ success: true, cell: updateResult.current, notification: notif });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -106,11 +116,13 @@ app.post('/api/staff/add', async (req, res) => {
   if (!monthKey || !category || !name) {
     return res.status(400).json({ error: "Missing required fields" });
   }
+
   try {
     const success = await db.addDoctor(monthKey, category, name);
     if (!success) {
       return res.status(400).json({ error: "Doctor already exists or invalid category" });
     }
+
     broadcast({ type: 'roster_update', data: { monthKey } });
     res.json({ success: true });
   } catch (e) {
@@ -124,11 +136,13 @@ app.post('/api/staff/remove', async (req, res) => {
   if (!monthKey || !name) {
     return res.status(400).json({ error: "Missing required fields" });
   }
+
   try {
     const success = await db.removeDoctor(monthKey, name);
     if (!success) {
       return res.status(404).json({ error: "Doctor not found" });
     }
+
     broadcast({ type: 'roster_update', data: { monthKey } });
     res.json({ success: true });
   } catch (e) {
@@ -142,6 +156,94 @@ app.get('/api/notifications', async (req, res) => {
   try {
     const list = await db.getNotifications(doctor);
     res.json(list);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ═══ REQUEST SYSTEM ENDPOINTS ═══
+
+// Submit a request (from doctor)
+app.post('/api/requests', async (req, res) => {
+  const { doctor, type, details, targetDay, targetMonth } = req.body;
+  if (!doctor || !type) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  try {
+    const request = await db.addRequest(doctor, type, details, targetDay, targetMonth);
+    broadcast({ type: 'new_request', data: request });
+    res.json({ success: true, request });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get all requests
+app.get('/api/requests', async (req, res) => {
+  try {
+    const list = await db.getRequests();
+    res.json(list);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Update request status (admin approve/reject)
+app.post('/api/requests/update', async (req, res) => {
+  const { requestId, status } = req.body;
+  if (!requestId || !status) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  try {
+    const updated = await db.updateRequestStatus(requestId, status);
+    if (!updated) return res.status(404).json({ error: "Request not found" });
+    broadcast({ type: 'request_update', data: { requestId, status } });
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ═══ BIRTHDAY ENDPOINTS ═══
+
+app.get('/api/birthdays', async (req, res) => {
+  try {
+    const list = await db.getBirthdays();
+    res.json(list);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.post('/api/birthdays', async (req, res) => {
+  const { name, date } = req.body;
+  if (!name || !date) return res.status(400).json({ error: "Missing fields" });
+  try {
+    await db.setBirthday(name, date);
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ═══ EMAIL SETTINGS ═══
+
+app.post('/api/settings/email', async (req, res) => {
+  const { doctor, email } = req.body;
+  if (!doctor) return res.status(400).json({ error: "Missing fields" });
+  try {
+    await db.setEmail(doctor, email || '');
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.get('/api/settings/email', async (req, res) => {
+  const { doctor } = req.query;
+  try {
+    const email = await db.getEmail(doctor);
+    res.json({ email });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -168,11 +270,11 @@ wss.on('connection', ws => {
       }
     } catch(e) {}
   });
-  ws.on('close', () => {
-  });
+
+  ws.on('close', () => {});
 });
 
 // Start Server
 server.listen(PORT, () => {
-  console.log(`Server is running in collaborative mode on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

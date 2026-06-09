@@ -42,6 +42,7 @@
   </header>
 
   <div class="container">
+    <div id="birthdayBannerContainer"></div>
     
     <!-- Top Level Dashboard & Statistics -->
     <div class="dashboard-grid">
@@ -133,16 +134,25 @@
 
       <div class="toolbar-actions">
         <button class="btn-green" onclick="openAddStaffModal()">➕ הוספת רופא/ה</button>
+        <button class="btn-primary" onclick="openBirthdaysModal()" style="background:linear-gradient(135deg, hsl(330, 85%, 55%), hsl(280, 85%, 50%)); color:#fff; font-weight:700;">🎂 ימי הולדת</button>
         <button class="btn-danger" onclick="confirmResetDatabase()">🔄 איפוס מערכת</button>
       </div>
     </div>
 
+    <!-- Doctor Requests Board (Admin only) -->
+    <section class="requests-panel" id="requestsPanel">
+      <h3>📬 בקשות ופניות מרופאים</h3>
+      <div class="requests-list" id="adminRequestsList">
+        <div class="no-requests-placeholder" style="color:var(--text-muted); font-size:0.9em; text-align:center; padding:20px; width:100%;">אין בקשות פתוחות כרגע</div>
+      </div>
+    </section>
+
     <!-- Main Navigation Tabs -->
     <div class="tabs-navigation">
       <div class="tabs">
-        <button id="tab-seniors" class="tab active" onclick="switchTab('seniors')">👨‍⚕️ בכירים ומומחים</button>
-        <button id="tab-resident" class="tab" onclick="switchTab('resident')">📚 מתמחים - מדיקל</button>
-        <button id="tab-all" class="tab" onclick="switchTab('all')">📊 כולם</button>
+        <button id="tab-seniors" class="tab" onclick="switchTab('seniors')">👨‍⚕️ בכירים ומומחים</button>
+        <button id="tab-resident" class="tab" onclick="switchTab('resident')">📚 מתמחים</button>
+        <button id="tab-all" class="tab active" onclick="switchTab('all')">📊 כולם</button>
       </div>
       
       <div class="table-legend-toggle" onclick="toggleLegend()">
@@ -203,7 +213,7 @@
         <label for="newStaffCat">קטגוריה:</label>
         <select id="newStaffCat">
           <option value="seniors">בכירים ומומחים</option>
-          <option value="resident">מתמחים - מדיקל</option>
+          <option value="resident">מתמחים</option>
         </select>
       </div>
       
@@ -214,7 +224,25 @@
     </div>
   </div>
 
+  <!-- Birthdays Modal -->
+  <div class="modal-overlay" id="birthdaysModal">
+    <div class="modal" style="max-height: 80vh; overflow-y: auto;">
+      <h2>🎂 ימי הולדת של הרופאים</h2>
+      <p class="form-help">הזינו ימי הולדת בפורמט DD/MM (למשל: 14/05) עבור כל רופא/ה.</p>
+      
+      <div id="birthdaysFormContainer" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+        <!-- Dynamically filled with input fields for each doctor -->
+      </div>
+      
+      <div class="modal-btns" style="margin-top: 20px;">
+        <button class="btn-cancel" onclick="closeModal('birthdaysModal')">סגור</button>
+        <button class="btn-primary" onclick="saveBirthdays()">שמור שינויים ✓</button>
+      </div>
+    </div>
+  </div>
+
   <!-- JavaScript Application Controller -->
+  <script src="holidays.js"></script>
   <script src="app.js"></script>
   
   <script>

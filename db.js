@@ -86,10 +86,12 @@ function getDefaultMayData() {
       { name: "מוחמד ח'טיב", schedule: ws(A, { 3: 'postcallfri', 5: 'postcall', 7: 'postcall', 11: 'postcall' }) },
       { name: 'אולגה מקסימוב', schedule: ws(A, { 7: 'internal', 10: 'postcallfri' }) },
       { name: 'מלכי אנה', schedule: ws(A, { 6: 'internal', 11: 'internal', 17: 'internal', 20: 'postcallfri' }) },
-      { name: "דר' אסתר ברייטברט", schedule: ws(A, {}) },
-      { name: "דר' יוסי בן דור", schedule: ws(A, { 4: 'postcall', 11: 'postcall', 18: 'postcall', 25: 'postcall' }) },
-      { name: "דר' טריין קבלסקי", schedule: ws(A, {}) },
-      { name: "דר' זוהר שמואליאן", schedule: ws(A, { 3: 'internal', 4: 'internal', 6: 'internal', 7: 'internal', 10: 'internal', 11: 'internal', 13: 'internal', 14: 'internal', 17: 'internal', 18: 'internal', 20: 'internal', 24: 'internal', 25: 'internal', 27: 'internal', 28: 'internal', 31: 'internal' }) },
+      { name: 'אסתר ברייטברט', schedule: ws(A, {}) },
+      { name: 'יוסי בן דור', schedule: ws(A, { 4: 'postcall', 11: 'postcall', 18: 'postcall', 25: 'postcall' }) },
+      { name: 'טריין קבלסקי', schedule: ws(A, {}) },
+      { name: 'זוהר שמואליאן', schedule: ws(A, { 3: 'internal', 4: 'internal', 6: 'internal', 7: 'internal', 10: 'internal', 11: 'internal', 13: 'internal', 14: 'internal', 17: 'internal', 18: 'internal', 20: 'internal', 24: 'internal', 25: 'internal', 27: 'internal', 28: 'internal', 31: 'internal' }) },
+      { name: 'בשיר אבו עקיל', schedule: ws([], {}) },
+      { name: "עדלי ג'עברי", schedule: ws([], {}) }
     ]
   };
 }
@@ -166,6 +168,9 @@ async function loadDatabase() {
     if (res.rows.length > 0) {
       const dbData = res.rows[0].data;
       if (!dbData.notifications) dbData.notifications = [];
+      if (!dbData.requests) dbData.requests = [];
+      if (!dbData.birthdays) dbData.birthdays = {};
+      if (!dbData.emails) dbData.emails = {};
       return dbData;
     }
   }
@@ -178,6 +183,9 @@ async function loadDatabase() {
       const raw = fs.readFileSync(DB_FILE, 'utf-8');
       cachedData = JSON.parse(raw);
       if (!cachedData.notifications) cachedData.notifications = [];
+      if (!cachedData.requests) cachedData.requests = [];
+      if (!cachedData.birthdays) cachedData.birthdays = {};
+      if (!cachedData.emails) cachedData.emails = {};
       return cachedData;
     } catch (e) {
       console.error("Error reading database.json, initializing default", e);
@@ -187,6 +195,9 @@ async function loadDatabase() {
   // Seeding Database
   const initial = {
     notifications: [],
+    requests: [],
+    birthdays: {},
+    emails: {},
     schedules: {
       '4-2026': getDefaultMayData()
     }
@@ -383,5 +394,63 @@ module.exports = {
     }
     cachedData = null;
     return await loadDatabase();
+  },
+
+  // ═══ REQUEST SYSTEM METHODS ═══
+  addRequest: async (doctor, type, details, targetDay, targetMonth) => {
+    const db = await loadDatabase();
+    const reqObj = {
+      id: Date.now().toString() + '-' + Math.random().toString(36).substring(2, 9),
+      doctor,
+      type,
+      details: details || '',
+      targetDay: targetDay || null,
+      targetMonth: targetMonth || null,
+      status: 'pending',
+      timestamp: new Date().toISOString()
+    };
+    db.requests.push(reqObj);
+    await saveDatabase(db);
+    return reqObj;
+  },
+
+  getRequests: async () => {
+    const db = await loadDatabase();
+    return db.requests;
+  },
+
+  updateRequestStatus: async (requestId, status) => {
+    const db = await loadDatabase();
+    const request = db.requests.find(r => r.id === requestId);
+    if (!request) return false;
+    request.status = status;
+    await saveDatabase(db);
+    return true;
+  },
+
+  // ═══ BIRTHDAYS METHODS ═══
+  getBirthdays: async () => {
+    const db = await loadDatabase();
+    return db.birthdays;
+  },
+
+  setBirthday: async (name, date) => {
+    const db = await loadDatabase();
+    db.birthdays[name] = date;
+    await saveDatabase(db);
+    return true;
+  },
+
+  // ═══ EMAIL SETTINGS METHODS ═══
+  getEmail: async (doctor) => {
+    const db = await loadDatabase();
+    return db.emails[doctor] || '';
+  },
+
+  setEmail: async (doctor, email) => {
+    const db = await loadDatabase();
+    db.emails[doctor] = email;
+    await saveDatabase(db);
+    return true;
   }
 };

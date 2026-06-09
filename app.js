@@ -43,7 +43,7 @@ const DOW = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
 
 // ═══ STATE VARIABLES ═══
 let currentMK = '5-2026'; // Default starts in June 2026!
-let curTab = 'seniors';
+let curTab = 'all';
 let isEditMode = false;
 let paintStatus = '';
 let paintBorder = '';
@@ -232,6 +232,8 @@ function handleSocketMessage(payload) {
     if (payload.data.monthKey === currentMK) {
       loadData();
     }
+  } else if (payload.type === 'new_request' || payload.type === 'request_update') {
+    loadAdminRequests();
   } else if (payload.type === 'reset') {
     window.location.reload();
   }
@@ -282,6 +284,8 @@ function render() {
   applySearch();
   showPersonalView();
   updateGreeting();
+  loadAdminRequests();
+  checkTodayBirthdays();
 }
 
 function getStaffList() {
@@ -290,17 +294,22 @@ function getStaffList() {
     const list = [].concat(DATA.seniors || []).concat(DATA.resident || []);
     return { list, label: 'כל הצוות' };
   }
-  const labels = { seniors: 'בכירים ומומחים', resident: 'מתמחים - מדיקל' };
+  const labels = { seniors: 'בכירים ומומחים', resident: 'מתמחים' };
   return { list: DATA[curTab] || [], label: labels[curTab] };
 }
 
 function renderTable(list, label) {
   const m = mi();
+  const holidays = window.getHolidays ? window.getHolidays(m.month, m.year) : {};
   let h = `<table><thead><tr><th class="nm" style="position:sticky;right:0;z-index:15">${label}</th>`;
   
   for (let d = 1; d <= m.totalDays; d++) {
     const wc = isWE(d, m) ? ' we' : '';
-    h += `<th class="day-header${wc}"><span class="dn">${d}</span><span class="dw">${DOW[dowOf(d, m)]}</span></th>`;
+    const dayHols = holidays[d] || [];
+    const holIndicator = dayHols.length > 0 
+      ? `<span class="holiday-indicator" title="${dayHols.join(', ')}">🎉</span>` 
+      : '';
+    h += `<th class="day-header${wc}"><span class="dn">${d}</span><span class="dw">${DOW[dowOf(d, m)]}</span>${holIndicator}</th>`;
   }
   h += '</tr></thead><tbody>';
   
@@ -391,11 +400,20 @@ function updateStatsAndSummaries() {
     });
   }
 
+  let residentsInWard = 0;
+  if (DATA && DATA.resident && dom >= 1 && dom <= m.totalDays) {
+    DATA.resident.forEach(p => {
+      const c = getCell(p.schedule[dom]);
+      if (c.s === 'ward') residentsInWard++;
+    });
+  }
+
   let h = `<div class="stat-item"><b>${list.length}</b><span>סה"כ רופאים</span></div>`;
   h += `<div class="stat-item"><b>${m.totalDays}</b><span>ימים בחודש</span></div>`;
   if (dom) {
     h += `<div class="stat-item"><b>${pres}</b><span>נוכחים היום</span></div>`;
     h += `<div class="stat-item"><b>${abs}</b><span>בחופש היום</span></div>`;
+    h += `<div class="stat-item"><b>${residentsInWard}</b><span>מתמחים במחלקה</span></div>`;
   } else {
     h += `<div class="stat-item"><b>-</b><span>מחוץ לטווח היום</span></div>`;
   }
@@ -717,15 +735,44 @@ function populateDefaultUserSelector() {
   });
 }
 
-function openSettings() {
+async function openSettings() {
   populateDefaultUserSelector();
+  const emailInp = document.getElementById('userEmailInp');
+  if (emailInp) {
+    emailInp.value = '';
+    if (personalUser) {
+      try {
+        const res = await fetch(`/api/settings/email?doctor=${encodeURIComponent(personalUser)}`);
+        if (res.ok) {
+          const body = await res.json();
+          emailInp.value = body.email || '';
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
   document.getElementById('settingsModal').classList.add('show');
 }
 
-function saveSettings() {
+async function saveSettings() {
   const selVal = document.getElementById('defaultUserSel').value;
   personalUser = selVal;
   localStorage.setItem('onco_default_user', selVal);
+  
+  const emailInp = document.getElementById('userEmailInp');
+  if (emailInp && personalUser) {
+    try {
+      await fetch('/api/settings/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ doctor: personalUser, email: emailInp.value.trim() })
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  
   closeModal('settingsModal');
   
   // Highlight active user row and update dashboard views
@@ -757,6 +804,11 @@ async function showPersonalView() {
   const calContainer = document.getElementById('pcalContainer');
   const userDisp = document.getElementById('panelUserDisplay');
   const listDisp = document.getElementById('notifList');
+  
+  const exportIcsBtn = document.getElementById('exportIcsBtn');
+  const requestBtn = document.getElementById('requestBtn');
+  if (exportIcsBtn) exportIcsBtn.style.display = personalUser ? 'inline-block' : 'none';
+  if (requestBtn) requestBtn.style.display = personalUser ? 'inline-block' : 'none';
   
   if (!personalUser) {
     wContent.innerHTML = `<div class="no-user-alert">טרם הוגדר משתמש אישי. לחצו על גלגל השיניים ⚙️ או היכנסו להגדרות לבחירת שמכם לקבלת עדכונים והתראות.</div>`;
@@ -803,6 +855,7 @@ async function showPersonalView() {
   // Update Personal Calendar
   if (person) {
     document.getElementById('calendarTitle').textContent = `📅 לוח אישי: ${personalUser} | ${monthLabel(currentMK)}`;
+    const holidays = window.getHolidays ? window.getHolidays(m.month, m.year) : {};
     
     let h = '';
     DOW.forEach(d => { h += `<div class="pcal-hdr">${d}</div>`; });
@@ -817,12 +870,17 @@ async function showPersonalView() {
       const dutyText = cellVal && cellVal.b !== 'none' ? BD[cellVal.b].label : '';
       
       const tc = ci.cls === 's-shabbat' ? 'color:#CFD8DC;' : '';
+      const dayHols = holidays[d] || [];
+      const holidayHtml = dayHols.length > 0
+        ? `<div class="pcal-holiday" title="${dayHols.join(', ')}">${dayHols[0]}</div>`
+        : '';
       
       h += `
         <div class="pcal-d" style="background:${ci.bg};${tc}${bstyle}${todayStyle}">
           <div class="pn">${d}</div>
           <div class="ps">${ci.tip.split('|')[0].trim()}</div>
           ${dutyText ? `<div class="pd">${dutyText}</div>` : ''}
+          ${holidayHtml}
         </div>
       `;
     }
@@ -902,5 +960,316 @@ function triggerDesktopNotification(title, body) {
     } catch(e) {
       console.error(e);
     }
+  }
+}
+
+// ═══ REQUEST SYSTEM CLIENT LOGIC ═══
+function openRequestModal() {
+  document.getElementById('reqDay').value = '';
+  document.getElementById('reqDetails').value = '';
+  document.getElementById('requestModal').classList.add('show');
+}
+
+async function submitRequest() {
+  const type = document.getElementById('reqType').value;
+  const dayVal = document.getElementById('reqDay').value.trim();
+  const details = document.getElementById('reqDetails').value.trim();
+  
+  if (!personalUser) {
+    alert("נא להגדיר משתמש אישי תחילה בהגדרות");
+    return;
+  }
+  
+  const payload = {
+    doctor: personalUser,
+    type,
+    details,
+    targetDay: dayVal ? parseInt(dayVal) : null,
+    targetMonth: currentMK
+  };
+  
+  try {
+    const res = await fetch('/api/requests', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      closeModal('requestModal');
+      alert("הבקשה נשלחה בהצלחה למנהל!");
+    } else {
+      const err = await res.json();
+      alert(`שגיאה בשליחת הבקשה: ${err.error}`);
+    }
+  } catch (e) {
+    console.error("Error submitting request", e);
+  }
+}
+
+async function loadAdminRequests() {
+  const listEl = document.getElementById('adminRequestsList');
+  if (!listEl) return; // Only run on admin screen
+  
+  try {
+    const res = await fetch('/api/requests');
+    if (!res.ok) throw new Error("Failed to fetch requests");
+    const list = await res.json();
+    
+    // Sort requests by timestamp desc
+    list.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+    
+    if (list.length === 0) {
+      listEl.innerHTML = `<div class="no-requests-placeholder" style="color:var(--text-muted); font-size:0.9em; text-align:center; padding:20px; width:100%;">אין בקשות במערכת</div>`;
+      return;
+    }
+    
+    listEl.innerHTML = list.map(req => {
+      const dateStr = new Date(req.timestamp).toLocaleString('he-IL', { hour12: false });
+      const targetStr = req.targetDay ? `יום ${req.targetDay} ב-${monthLabel(req.targetMonth)}` : monthLabel(req.targetMonth);
+      
+      let statusHtml = '';
+      if (req.status === 'pending') {
+        statusHtml = `
+          <div class="req-actions">
+            <button class="btn-green" onclick="handleRequestAction('${req.id}', 'approved')">אישור ✓</button>
+            <button class="btn-danger" onclick="handleRequestAction('${req.id}', 'rejected')">דחייה ✕</button>
+          </div>
+        `;
+      } else if (req.status === 'approved') {
+        statusHtml = `<div class="req-status-approved">אושר ✓</div>`;
+      } else {
+        statusHtml = `<div class="req-status-rejected">נדחה ✕</div>`;
+      }
+      
+      return `
+        <div class="request-card">
+          <div class="req-header">
+            <span class="req-doctor">${req.doctor}</span>
+            <span class="req-type">${req.type}</span>
+          </div>
+          <div class="req-body">
+            <div><strong>יעד:</strong> ${targetStr}</div>
+            ${req.details ? `<div><strong>פרטים:</strong> ${req.details}</div>` : ''}
+            <div style="font-size:0.75em; color:var(--text-muted); margin-top:4px;">${dateStr}</div>
+          </div>
+          ${statusHtml}
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    console.error("Error loading admin requests", e);
+  }
+}
+
+async function handleRequestAction(requestId, status) {
+  try {
+    const res = await fetch('/api/requests/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ requestId, status })
+    });
+    if (res.ok) {
+      loadAdminRequests();
+    } else {
+      alert("שגיאה בעדכון הבקשה");
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// ═══ CALENDAR ICS EXPORT LOGIC ═══
+function exportToICS() {
+  if (!personalUser || !DATA) return;
+  const person = findPersonInCache(personalUser);
+  if (!person) {
+    alert("המשתמש האישי אינו רשום בחודש זה");
+    return;
+  }
+  
+  const m = mi();
+  const [mStr, yStr] = currentMK.split('-');
+  const monthNum = parseInt(mStr) + 1; // 1-12
+  const yearNum = parseInt(yStr);
+  
+  let icsLines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Hadassah Oncology//Roster Export//HE',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH'
+  ];
+  
+  for (let d = 1; d <= m.totalDays; d++) {
+    const cellVal = person.schedule[d];
+    if (!cellVal) continue;
+    
+    // Only export work locations, or on-call duties
+    const isWork = cellVal.s !== 'off' && cellVal.s !== 'weoff';
+    const isDuty = cellVal.b !== 'none';
+    
+    if (isWork || isDuty) {
+      // Event dates
+      const yyyy = String(yearNum);
+      const mm = String(monthNum).padStart(2, '0');
+      const dd = String(d).padStart(2, '0');
+      const dateStart = `${yyyy}${mm}${dd}`;
+      
+      // End date is day + 1 for all-day event
+      const nextDate = new Date(yearNum, monthNum - 1, d + 1);
+      const nyyyy = String(nextDate.getFullYear());
+      const nmm = String(nextDate.getMonth() + 1).padStart(2, '0');
+      const ndd = String(nextDate.getDate()).padStart(2, '0');
+      const dateEnd = `${nyyyy}${nmm}${ndd}`;
+      
+      const locLabel = ST[cellVal.s] ? ST[cellVal.s].label : cellVal.s;
+      const dutyLabel = BD[cellVal.b] ? BD[cellVal.b].label : '';
+      
+      let summaryParts = [];
+      if (isWork) summaryParts.push(`מיקום: ${locLabel}`);
+      if (isDuty) summaryParts.push(dutyLabel);
+      
+      const summary = `תורנות אונקולוגיה - ${summaryParts.join(' | ')}`;
+      const uid = `onco-sched-${currentMK}-${d}-${encodeURIComponent(personalUser)}@hadassah.org`;
+      
+      icsLines.push('BEGIN:VEVENT');
+      icsLines.push(`UID:${uid}`);
+      icsLines.push(`DTSTART;VALUE=DATE:${dateStart}`);
+      icsLines.push(`DTEND;VALUE=DATE:${dateEnd}`);
+      icsLines.push(`SUMMARY:${summary}`);
+      icsLines.push(`DESCRIPTION:שיבוץ ליומן מחלקת אונקולוגיה הדסה עבור ${personalUser}\\nמיקום: ${locLabel}\\nתפקיד: ${dutyLabel || 'ללא'}`);
+      icsLines.push('END:VEVENT');
+    }
+  }
+  
+  icsLines.push('END:VCALENDAR');
+  
+  const icsString = icsLines.join('\r\n');
+  const blob = new Blob([icsString], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `schedule_${personalUser.replace(/\s+/g, '_')}_${currentMK}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+// ═══ BIRTHDAYS CLIENT LOGIC ═══
+let originalBirthdays = {};
+async function openBirthdaysModal() {
+  const container = document.getElementById('birthdaysFormContainer');
+  if (!container) return;
+  
+  container.innerHTML = '<div style="color:var(--text-muted);">טוען רשימת רופאים...</div>';
+  document.getElementById('birthdaysModal').classList.add('show');
+  
+  try {
+    // Fetch current birthdays
+    const bRes = await fetch('/api/birthdays');
+    if (!bRes.ok) throw new Error();
+    originalBirthdays = await bRes.json();
+    
+    // Compile list of unique doctors from DATA
+    const doctors = [];
+    if (DATA) {
+      ['seniors', 'resident'].forEach(cat => {
+        (DATA[cat] || []).forEach(p => {
+          if (!doctors.includes(p.name)) {
+            doctors.push(p.name);
+          }
+        });
+      });
+    }
+    
+    doctors.sort();
+    
+    if (doctors.length === 0) {
+      container.innerHTML = '<div style="color:var(--text-muted);">אין רופאים רשומים בחודש זה.</div>';
+      return;
+    }
+    
+    container.innerHTML = doctors.map(name => {
+      const bday = originalBirthdays[name] || '';
+      return `
+        <div class="form-group" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:5px;">
+          <label style="flex:1; font-weight:600; margin-bottom:0;">${name}:</label>
+          <input type="text" data-doctor="${name}" class="bday-input" value="${bday}" placeholder="DD/MM (למשל: 14/05)" style="width:180px;">
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    console.error(e);
+    container.innerHTML = '<div style="color:var(--text-danger);">שגיאה בטעינת נתוני ימי ההולדת</div>';
+  }
+}
+
+async function saveBirthdays() {
+  const inputs = document.querySelectorAll('.bday-input');
+  let promises = [];
+  
+  inputs.forEach(inp => {
+    const name = inp.getAttribute('data-doctor');
+    const date = inp.value.trim();
+    
+    // Save only if value changed
+    if (originalBirthdays[name] !== date) {
+      promises.push(
+        fetch('/api/birthdays', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, date })
+        })
+      );
+    }
+  });
+  
+  try {
+    await Promise.all(promises);
+    closeModal('birthdaysModal');
+    checkTodayBirthdays();
+    alert("ימי ההולדת עודכנו בהצלחה!");
+  } catch (e) {
+    console.error(e);
+    alert("שגיאה בשמירת ימי ההולדת");
+  }
+}
+
+async function checkTodayBirthdays() {
+  const bannerContainer = document.getElementById('birthdayBannerContainer');
+  if (!bannerContainer) return;
+  
+  try {
+    const res = await fetch('/api/birthdays');
+    if (!res.ok) return;
+    const birthdays = await res.json();
+    
+    const today = new Date();
+    const d = String(today.getDate()).padStart(2, '0');
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const todayKeyNorm = `${d}/${m}`; // DD/MM format
+    const todayKeyShort = `${today.getDate()}/${today.getMonth() + 1}`; // D/M format
+    
+    const birthdayNames = [];
+    Object.entries(birthdays).forEach(([name, bday]) => {
+      if (bday === todayKeyNorm || bday === todayKeyShort) {
+        birthdayNames.push(name);
+      }
+    });
+    
+    if (birthdayNames.length > 0) {
+      bannerContainer.innerHTML = `
+        <div class="birthday-banner">
+          <span>🎂 יום הולדת שמח ל<b>${birthdayNames.join(', ')}</b>! 🎈🎉</span>
+          <button onclick="this.parentElement.remove()">סגור</button>
+        </div>
+      `;
+    } else {
+      bannerContainer.innerHTML = '';
+    }
+  } catch (e) {
+    console.error("Error checking today's birthdays", e);
   }
 }
