@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>סידור עבודה - אונקולוגיה הדסה</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  
+  <!-- Collaborative Realtime Sync Banner -->
+  <div id="syncStatus" class="sync-banner connected">
+    <span class="pulse-dot"></span>
+    <span id="syncText">מחובר ומסונכרן בזמן אמת</span>
+  </div>
+
+  <!-- Premium Header -->
+  <header class="hdr">
+    <div class="hdr-logo-area">
+      <div class="app-logo">📋</div>
+      <h1>סידור עבודה<small>מחלקת אונקולוגיה - הדסה | צפייה בלבד</small></h1>
+    </div>
+    
+    <div class="hdr-c">
+      <span class="greeting" id="greeting"></span>
+      <select id="monthSel" class="month-sel" onchange="changeMonth()"></select>
+      <input type="text" id="searchInp" placeholder="🔍 חיפוש שם רופא..." oninput="doSearch(this.value)">
+      
+      <div class="action-buttons">
+        <button id="notiAuthBtn" onclick="requestNotificationPermission()" title="הפעלת התראות שולחן עבודה">🔔</button>
+        <button onclick="toggleTheme()" title="מצב יום/לילה">🌓</button>
+        <button onclick="window.print()" title="הדפסת סידור">🖨️</button>
+        <button onclick="openSettings()" title="הגדרות משתמש">⚙️</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Top Level Dashboard & Statistics -->
+    <div class="dashboard-grid">
+      <!-- Statistics Bar -->
+      <div class="stats-card" id="statsBar"></div>
+
+      <!-- Quick Roster Personal Widget -->
+      <div class="personal-widget" id="personalWidget">
+        <div class="widget-header">
+          <h3>👤 משתמש אישי</h3>
+          <button class="widget-link-btn" onclick="scrollToPersonalPanel()">לצפייה בלוח המלא 📅</button>
+        </div>
+        <div id="widgetContent" class="widget-body">
+          <div class="no-user-alert">
+            טרם הוגדר משתמש אישי. לחצו על גלגל השיניים ⚙️ או היכנסו להגדרות לבחירת שמכם לקבלת עדכונים והתראות.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Dashboard Section (View Roster and Calendar) -->
+    <section class="personal-panel-card" id="personalPanel">
+      <div class="panel-header">
+        <h2>📅 הלוח האישי שלי</h2>
+        <div class="panel-user-display" id="panelUserDisplay"></div>
+      </div>
+      
+      <div class="panel-grid">
+        <!-- Monthly Calendar View -->
+        <div class="panel-calendar-card">
+          <h3 id="calendarTitle">לוח שנה אישי</h3>
+          <div class="pcal-wrapper">
+            <div class="pcal" id="pcalContainer">
+              <div class="no-user-placeholder">נא לבחור רופא ברירת מחדל בהגדרות כדי להציג את לוח השנה האישי.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Center -->
+        <div class="panel-notif-card">
+          <h3>🔔 עדכונים ושינויים בסידור שלי</h3>
+          <div class="notif-list" id="notifList">
+            <div class="no-notif-placeholder">אין עדכונים חדשים</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Navigation Tabs -->
+    <div class="tabs-navigation">
+      <div class="tabs">
+        <button id="tab-seniors" class="tab active" onclick="switchTab('seniors')">👨‍⚕️ בכירים ומומחים</button>
+        <button id="tab-resident" class="tab" onclick="switchTab('resident')">📚 מתמחים - מדיקל</button>
+        <button id="tab-all" class="tab" onclick="switchTab('all')">📊 כולם</button>
+      </div>
+      
+      <div class="table-legend-toggle" onclick="toggleLegend()">
+        <span id="legendToggleIcon">👁️</span> מקרא קיצורים וצבעים
+      </div>
+    </div>
+
+    <!-- Collapsible Legend -->
+    <div class="legend-wrapper collapsed" id="legendWrapper">
+      <div class="legend-content">
+        <div id="legendGrid"></div>
+      </div>
+    </div>
+
+    <!-- Main Schedule Table Wrapper -->
+    <div class="table-container-card">
+      <div class="tw" id="tableWrap">
+        <div class="table-loading">טוען נתונים מהשרת...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <h2>⚙️ הגדרות משתמש אישי</h2>
+      
+      <div class="form-group">
+        <label for="defaultUserSel">בחירת הרופא/ה שלך:</label>
+        <select id="defaultUserSel">
+          <option value="">-- ללא משתמש מוגדר --</option>
+        </select>
+        <p class="form-help">הבחירה תישמר בדפדפן זה והלוח האישי שלך ייטען אוטומטית בכל כניסה.</p>
+      </div>
+      
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeModal('settingsModal')">ביטול</button>
+        <button class="btn-primary" onclick="saveSettings()">שמור הגדרות ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Controller -->
+  <script src="app.js"></script>
+</body>
+</html>
