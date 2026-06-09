@@ -1,0 +1,5508 @@
+{
+  "5-2026": {
+    "seniors": [
+      {
+        "name": "אילה הוברט",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "לונה כדורי",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "off",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "off",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "off",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "off",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מרק ויגודה",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מרק טמפר",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מיכל לוטם",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "אלכסנדר לוסוס",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "off",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "off",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "off",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "ליניצקי אדוארד",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "off",
+            "b": "none"
+          },
+          "4": {
+            "s": "off",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "off",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "off",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מרימס שרון",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "off",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "off",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "off",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "חובב נחושתן",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "off",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "off",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "סלאח עזאם",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "עוזיאלי ביאטריס",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "off",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "פרנק סטיבן",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "off",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "יקיר רוטנברג",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "שי רוזנברג",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "off",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "שני פאלוך",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "off",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "off",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "זיק אביעד",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "off",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "off",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "off",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "off",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "עפרה מימון",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "עליאן פיראס",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "נבו שושן",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "off",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "לוי עדי",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מרלה עירית",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "פיליפ בלומנפלד",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "אימן סלהב",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "off",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "פאנג מרסל",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "שרון נורדהיימר",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "שרגא גראס",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "דליה צורף",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "off",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "יעל ויגודה",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "off",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "off",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מוטי אבנר",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "off",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "יהונתן זרביב",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "בהאא בשיר",
+        "schedule": {
+          "1": {
+            "s": "off",
+            "b": "none"
+          },
+          "2": {
+            "s": "off",
+            "b": "none"
+          },
+          "3": {
+            "s": "off",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "off",
+            "b": "none"
+          },
+          "9": {
+            "s": "off",
+            "b": "none"
+          },
+          "10": {
+            "s": "off",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "off",
+            "b": "none"
+          },
+          "16": {
+            "s": "off",
+            "b": "none"
+          },
+          "17": {
+            "s": "off",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "off",
+            "b": "none"
+          },
+          "24": {
+            "s": "off",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "off",
+            "b": "none"
+          },
+          "30": {
+            "s": "off",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "אוסאמה עבדאללה",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      }
+    ],
+    "resident": [
+      {
+        "name": "סטניסלב בגליי",
+        "schedule": {
+          "1": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "4": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "9": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "oncall"
+          },
+          "14": {
+            "s": "postcallfri",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "16": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "18": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "off",
+            "b": "none"
+          },
+          "22": {
+            "s": "off",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "ג'וש מוס",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "oncall"
+          },
+          "21": {
+            "s": "postcallfri",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "off",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "ליאנה יאסין",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "15": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "בוהדנה חן",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מוחמד ח'טיב",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "23": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "25": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "29": {
+            "s": "postcallfri",
+            "b": "oncall"
+          },
+          "30": {
+            "s": "postcall",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "אולגה מקסימוב",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "29": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "מלכי אנה",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "2": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "3": {
+            "s": "internal",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "internal",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "oncall"
+          },
+          "11": {
+            "s": "postcall",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "internal",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "internal",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "internal",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "דר' אסתר ברייטברט",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "דר' יוסי בן דור",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "oncall"
+          },
+          "7": {
+            "s": "postcallfri",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "דר' טריין קבלסקי",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "דר' זוהר שמואליאן",
+        "schedule": {
+          "1": {
+            "s": "internal",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "internal",
+            "b": "none"
+          },
+          "4": {
+            "s": "internal",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "internal",
+            "b": "none"
+          },
+          "8": {
+            "s": "internal",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "internal",
+            "b": "none"
+          },
+          "11": {
+            "s": "internal",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "internal",
+            "b": "none"
+          },
+          "15": {
+            "s": "internal",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "internal",
+            "b": "none"
+          },
+          "18": {
+            "s": "internal",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "internal",
+            "b": "none"
+          },
+          "22": {
+            "s": "internal",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "internal",
+            "b": "none"
+          },
+          "25": {
+            "s": "internal",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "internal",
+            "b": "none"
+          },
+          "29": {
+            "s": "internal",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      },
+      {
+        "name": "שורוק מארג'נה",
+        "schedule": {
+          "1": {
+            "s": "ward",
+            "b": "none"
+          },
+          "2": {
+            "s": "ward",
+            "b": "none"
+          },
+          "3": {
+            "s": "ward",
+            "b": "none"
+          },
+          "4": {
+            "s": "ward",
+            "b": "none"
+          },
+          "5": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "6": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "7": {
+            "s": "ward",
+            "b": "none"
+          },
+          "8": {
+            "s": "ward",
+            "b": "none"
+          },
+          "9": {
+            "s": "ward",
+            "b": "none"
+          },
+          "10": {
+            "s": "ward",
+            "b": "none"
+          },
+          "11": {
+            "s": "ward",
+            "b": "none"
+          },
+          "12": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "13": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "14": {
+            "s": "ward",
+            "b": "none"
+          },
+          "15": {
+            "s": "ward",
+            "b": "none"
+          },
+          "16": {
+            "s": "ward",
+            "b": "none"
+          },
+          "17": {
+            "s": "ward",
+            "b": "none"
+          },
+          "18": {
+            "s": "ward",
+            "b": "none"
+          },
+          "19": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "20": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "21": {
+            "s": "ward",
+            "b": "none"
+          },
+          "22": {
+            "s": "ward",
+            "b": "none"
+          },
+          "23": {
+            "s": "ward",
+            "b": "none"
+          },
+          "24": {
+            "s": "ward",
+            "b": "none"
+          },
+          "25": {
+            "s": "ward",
+            "b": "none"
+          },
+          "26": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "27": {
+            "s": "shabbat",
+            "b": "none"
+          },
+          "28": {
+            "s": "ward",
+            "b": "none"
+          },
+          "29": {
+            "s": "ward",
+            "b": "none"
+          },
+          "30": {
+            "s": "ward",
+            "b": "none"
+          }
+        }
+      }
+    ]
+  }
+}
