@@ -52,6 +52,17 @@ let isPainting = false;
 let DATA = null; // Holds the current month's fetched data
 let ws = null; // WebSocket connection
 let personalUser = localStorage.getItem('onco_default_user') || '';
+let pendingChanges = {};
+let adminSettings = { thresholds: { ward: 3, radio: 1, daytreat: 1 } };
+
+// Prompt user before closing window with unsaved changes
+window.addEventListener('beforeunload', (e) => {
+  if (Object.keys(pendingChanges).length > 0) {
+    e.preventDefault();
+    e.returnValue = 'ישנם שינויים שלא נשמרו. האם לצאת בכל זאת?';
+    return e.returnValue;
+  }
+});
 
 // ═══ CALENDAR MATH HELPERS ═══
 function mkKey(m, y) { return m + '-' + y; }
@@ -245,9 +256,15 @@ async function loadData() {
   container.innerHTML = '<div class="table-loading">טוען סידור עבודה מהשרת...</div>';
   
   try {
-    const res = await fetch(`/api/schedule?month=${currentMK}`);
+    const [res, settingsRes] = await Promise.all([
+      fetch(`/api/schedule?month=${currentMK}`),
+      fetch('/api/admin/settings')
+    ]);
     if (!res.ok) throw new Error("Failed to fetch schedule");
     DATA = await res.json();
+    if (settingsRes.ok) {
+      adminSettings = await settingsRes.json();
+    }
     render();
   } catch (e) {
     container.innerHTML = `<div class="table-error">שגיאה בטעינת הנתונים: ${e.message}. אנא ודאו שהשרת פעיל ונסו לרענן.</div>`;
@@ -290,10 +307,23 @@ function render() {
 
 function getStaffList() {
   if (!DATA) return { list: [], label: '' };
+  const specialNames = ['בשיר אבו עקיל', "עדלי ג'עברי"];
+  
   if (curTab === 'all') {
-    const list = [].concat(DATA.seniors || []).concat(DATA.resident || []);
+    const seniors = DATA.seniors || [];
+    const residentsNormal = (DATA.resident || []).filter(r => !specialNames.includes(r.name));
+    const residentsSpecial = (DATA.resident || []).filter(r => specialNames.includes(r.name));
+    const list = [].concat(seniors).concat(residentsNormal).concat(residentsSpecial);
     return { list, label: 'כל הצוות' };
   }
+  
+  if (curTab === 'resident') {
+    const residentsNormal = (DATA.resident || []).filter(r => !specialNames.includes(r.name));
+    const residentsSpecial = (DATA.resident || []).filter(r => specialNames.includes(r.name));
+    const list = [].concat(residentsNormal).concat(residentsSpecial);
+    return { list, label: 'מתמחים' };
+  }
+  
   const labels = { seniors: 'בכירים ומומחים', resident: 'מתמחים' };
   return { list: DATA[curTab] || [], label: labels[curTab] };
 }
@@ -306,17 +336,44 @@ function renderTable(list, label) {
   for (let d = 1; d <= m.totalDays; d++) {
     const wc = isWE(d, m) ? ' we' : '';
     const dayHols = holidays[d] || [];
-    const holIndicator = dayHols.length > 0 
-      ? `<span class="holiday-indicator" title="${dayHols.join(', ')}">🎉</span>` 
+    
+    const dateObj = new Date(m.year, m.month, d);
+    const hebDateFull = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj);
+    const hebDayOnly = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric' }).format(dateObj);
+    
+    const shortages = getDayShortages(d);
+    const warningHtml = shortages.length > 0
+      ? `<span class="shortage-warning" title="חוסר במתמחים: ${shortages.join(', ')}" style="color:hsl(0, 85%, 60%); cursor:help; margin-right:4px;">⚠️</span>`
       : '';
-    h += `<th class="day-header${wc}"><span class="dn">${d}</span><span class="dw">${DOW[dowOf(d, m)]}</span>${holIndicator}</th>`;
+      
+    const tooltipTexts = [hebDateFull];
+    if (dayHols.length > 0) tooltipTexts.push(dayHols.join(', '));
+    const holIndicator = dayHols.length > 0 
+      ? `<span class="holiday-indicator">🎉</span>` 
+      : '';
+      
+    h += `<th class="day-header${wc}" title="${tooltipTexts.join(' | ')}">
+            <span class="dn">${d}</span>
+            <span class="dw">${DOW[dowOf(d, m)]}</span>
+            <span class="dheb" style="font-size:0.65em; display:block; opacity:0.8; font-weight:normal;">${hebDayOnly}</span>
+            ${warningHtml} ${holIndicator}
+          </th>`;
   }
   h += '</tr></thead><tbody>';
+  
+  const specialNames = ['בשיר אבו עקיל', "עדלי ג'עברי"];
+  let renderedSpecialHeader = false;
   
   list.forEach(p => {
     const esc = p.name.replace(/'/g, "\\'");
     const isUserRow = personalUser && p.name === personalUser;
     const rowClass = isUserRow ? ' class="hl"' : '';
+    const category = getCategoryForName(p.name);
+    
+    if (specialNames.includes(p.name) && !renderedSpecialHeader) {
+      renderedSpecialHeader = true;
+      h += `<tr class="section-divider-row"><td colspan="${m.totalDays + 1}" style="background:hsl(210, 85%, 95%); color:var(--primary); font-weight:700; text-align:right; padding:6px 12px; font-size:0.85em;">מתמחים לתורנויות בלבד (תורנות / תורנות חצי בלבד)</td></tr>`;
+    }
     
     h += `<tr data-name="${p.name}"${rowClass}>`;
     h += `<td class="nm">${p.name}`;
@@ -326,14 +383,25 @@ function renderTable(list, label) {
     h += `</td>`;
     
     for (let d = 1; d <= m.totalDays; d++) {
-      const ci = cellInfo(p.schedule[d]);
+      const pKey = `${category}_${p.name}_${d}`;
+      let cellVal = p.schedule[d] || { s: 'off', b: 'none' };
+      const isPending = !!pendingChanges[pKey];
+      if (isPending) {
+        cellVal = {
+          s: pendingChanges[pKey].status !== undefined ? pendingChanges[pKey].status : cellVal.s,
+          b: pendingChanges[pKey].border !== undefined ? pendingChanges[pKey].border : cellVal.b
+        };
+      }
+      
+      const ci = cellInfo(cellVal);
       const ec = isEditMode ? ' editable' : '';
-      const cs = `${ci.cls} ${ci.bcls} ${ec}`;
+      const pendingCls = isPending ? ' pending-cell' : '';
+      const cs = `${ci.cls} ${ci.bcls}${ec}${pendingCls}`;
       const dot = ci.dcls ? `<span class="duty-dot ${ci.dcls}"></span>` : '';
       
       h += `<td class="${cs}" data-day="${d}" data-person="${p.name}"`;
       if (isEditMode) {
-        h += ` onmousedown="startPaint(this)" onmouseenter="doPaint(this)" onmouseup="endPaint()" onclick="cellClick(this,event)"`;
+        h += ` onmousedown="startPaint(this)" onmouseenter="doPaint(this)" onmouseup="endPaint()" onclick="cellClick(this,event)" oncontextmenu="cellRightClick(this,event)"`;
       }
       h += `>${dot}<div class="cell-content">${ci.text}<div class="ttip">${p.name} | יום ${d}<br>${ci.tip}</div></div></td>`;
     }
@@ -485,31 +553,17 @@ async function paintCell(td) {
   if (!name || !day) return;
   
   const category = getCategoryForName(name);
+  const specialNames = ['בשיר אבו עקיל', "עדלי ג'עברי"];
   
-  try {
-    const payload = {
-      monthKey: currentMK,
-      category,
-      name,
-      day,
-      status: paintStatus ? paintStatus : undefined,
-      border: paintBorder ? paintBorder : undefined
-    };
-    
-    // Optimistically update cell locally for instant feel
-    const sVal = paintStatus ? paintStatus : undefined;
-    const bVal = paintBorder ? paintBorder : undefined;
-    
-    const res = await fetch('/api/schedule/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    
-    if (!res.ok) throw new Error("Failed to save cell update");
-  } catch (e) {
-    console.error("Error saving update", e);
+  if (specialNames.includes(name)) {
+    if (paintStatus && paintStatus !== 'off') {
+      return; // Do not allow location other than off
+    }
   }
+  
+  registerPendingChange(category, name, day, paintStatus ? paintStatus : undefined, paintBorder ? paintBorder : undefined);
+  updateCellUI(td, name, day, category);
+  updateUnsavedState();
 }
 
 function getCategoryForName(name) {
@@ -526,14 +580,24 @@ function cellClick(td, ev) {
   ev.stopPropagation();
   closeCellPicker();
   
+  const name = td.getAttribute('data-person');
+  const specialNames = ['בשיר אבו עקיל', "עדלי ג'עברי"];
+  const isSpecialRes = specialNames.includes(name);
+  
   const picker = document.getElementById('cellPicker');
-  let h = '<div class="cp-section">📍 שינוי מיקום (צבע רקע)</div>';
-  ST_ORDER.forEach(k => {
-    const s = ST[k];
-    h += `<div class="cp-item" onclick="applyCellPickerLoc('${k}')"><div class="cp-box" style="background:${s.bg}"></div>${s.label}</div>`;
-  });
+  let h = '';
+  
+  if (!isSpecialRes) {
+    h += '<div class="cp-section">📍 שינוי מיקום (צבע רקע)</div>';
+    ST_ORDER.forEach(k => {
+      const s = ST[k];
+      h += `<div class="cp-item" onclick="applyCellPickerLoc('${k}')"><div class="cp-box" style="background:${s.bg}"></div>${s.label}</div>`;
+    });
+  }
+  
   h += '<div class="cp-section">🚨 שינוי תורנות/כוננות (מסגרת)</div>';
-  BD_ORDER.forEach(k => {
+  const allowedBorders = isSpecialRes ? ['oncall', 'halfoncall', 'none'] : BD_ORDER;
+  allowedBorders.forEach(k => {
     const b = BD[k];
     const sty = k === 'none' ? 'background:#f5f5f5' : `background:#f5f5f5;box-shadow:inset 0 0 0 3px ${b.color}`;
     h += `<div class="cp-item" onclick="applyCellPickerBrd('${k}')"><div class="cp-border-box" style="${sty}"></div>${b.label}</div>`;
@@ -549,10 +613,25 @@ function cellClick(td, ev) {
 }
 
 function closeCellPicker() {
-  document.getElementById('cellPicker').classList.remove('show');
+  const p = document.getElementById('cellPicker');
+  if (p) p.classList.remove('show');
   activePickerCell = null;
 }
 document.addEventListener('click', closeCellPicker);
+
+function cellRightClick(td, ev) {
+  ev.preventDefault();
+  cellClick(td, ev);
+}
+
+function personalCellRightClick(div, ev, doctor, day) {
+  ev.preventDefault();
+  cellClick(div, ev);
+}
+
+function personalCellClick(div, ev, doctor, day) {
+  cellClick(div, ev);
+}
 
 async function applyCellPickerLoc(status) {
   if (!activePickerCell) return;
@@ -563,15 +642,9 @@ async function applyCellPickerLoc(status) {
   
   closeCellPicker();
   
-  try {
-    await fetch('/api/schedule/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ monthKey: currentMK, category, name, day, status })
-    });
-  } catch (e) {
-    console.error(e);
-  }
+  registerPendingChange(category, name, day, status, undefined);
+  updateCellUI(td, name, day, category);
+  updateUnsavedState();
 }
 
 async function applyCellPickerBrd(border) {
@@ -583,15 +656,9 @@ async function applyCellPickerBrd(border) {
   
   closeCellPicker();
   
-  try {
-    await fetch('/api/schedule/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ monthKey: currentMK, category, name, day, border })
-    });
-  } catch (e) {
-    console.error(e);
-  }
+  registerPendingChange(category, name, day, undefined, border);
+  updateCellUI(td, name, day, category);
+  updateUnsavedState();
 }
 
 // ═══ ADD/REMOVE STAFF ═══
@@ -807,8 +874,10 @@ async function showPersonalView() {
   
   const exportIcsBtn = document.getElementById('exportIcsBtn');
   const requestBtn = document.getElementById('requestBtn');
+  const copySyncUrlBtn = document.getElementById('copySyncUrlBtn');
   if (exportIcsBtn) exportIcsBtn.style.display = personalUser ? 'inline-block' : 'none';
   if (requestBtn) requestBtn.style.display = personalUser ? 'inline-block' : 'none';
+  if (copySyncUrlBtn) copySyncUrlBtn.style.display = personalUser ? 'inline-block' : 'none';
   
   if (!personalUser) {
     wContent.innerHTML = `<div class="no-user-alert">טרם הוגדר משתמש אישי. לחצו על גלגל השיניים ⚙️ או היכנסו להגדרות לבחירת שמכם לקבלת עדכונים והתראות.</div>`;
@@ -856,29 +925,54 @@ async function showPersonalView() {
   if (person) {
     document.getElementById('calendarTitle').textContent = `📅 לוח אישי: ${personalUser} | ${monthLabel(currentMK)}`;
     const holidays = window.getHolidays ? window.getHolidays(m.month, m.year) : {};
+    const category = getCategoryForName(personalUser);
     
     let h = '';
     DOW.forEach(d => { h += `<div class="pcal-hdr">${d}</div>`; });
     for (let i = 0; i < m.startDow; i++) h += '<div class="pcal-d pcal-e"></div>';
     
     for (let d = 1; d <= m.totalDays; d++) {
-      const cellVal = person.schedule[d];
+      const pKey = `${category}_${personalUser}_${d}`;
+      let cellVal = person.schedule[d] || { s: 'off', b: 'none' };
+      const isPending = !!pendingChanges[pKey];
+      if (isPending) {
+        cellVal = {
+          s: pendingChanges[pKey].status !== undefined ? pendingChanges[pKey].status : cellVal.s,
+          b: pendingChanges[pKey].border !== undefined ? pendingChanges[pKey].border : cellVal.b
+        };
+      }
+      
       const ci = cellInfo(cellVal);
       const isToday = isCurrentMonth && d === todayDay;
       const bstyle = ci.bcolor !== 'transparent' ? `box-shadow:inset 0 0 0 3px ${ci.bcolor};` : '';
       const todayStyle = isToday ? 'border: 2px dashed var(--accent);' : '';
+      const pendingOutline = isPending ? 'outline: 2px dashed hsl(35, 100%, 50%); outline-offset: -2px;' : '';
       const dutyText = cellVal && cellVal.b !== 'none' ? BD[cellVal.b].label : '';
       
       const tc = ci.cls === 's-shabbat' ? 'color:#CFD8DC;' : '';
       const dayHols = holidays[d] || [];
+      
+      // Hebrew dates
+      const dateObj = new Date(m.year, m.month, d);
+      const hebDateFull = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj);
+      const hebDayOnly = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric' }).format(dateObj);
+      
       const holidayHtml = dayHols.length > 0
         ? `<div class="pcal-holiday" title="${dayHols.join(', ')}">${dayHols[0]}</div>`
         : '';
+        
+      let inlineHandlers = '';
+      if (isEditMode) {
+        inlineHandlers = `oncontextmenu="personalCellRightClick(this, event, '${personalUser}', ${d})" onclick="personalCellClick(this, event, '${personalUser}', ${d})"`;
+      }
       
       h += `
-        <div class="pcal-d" style="background:${ci.bg};${tc}${bstyle}${todayStyle}">
-          <div class="pn">${d}</div>
-          <div class="ps">${ci.tip.split('|')[0].trim()}</div>
+        <div class="pcal-d" data-person="${personalUser}" data-day="${d}" style="background:${ci.bg};${tc}${bstyle}${todayStyle}${pendingOutline}" ${inlineHandlers} title="${hebDateFull}">
+          <div class="pn-row" style="display:flex; justify-content:space-between; align-items:center; width:100%; font-size:0.75em; color:var(--text-muted);">
+            <span class="pn" style="font-size:1.45em; font-weight:700; color:var(--text-main);">${d}</span>
+            <span class="pheb" style="font-weight:600;">${hebDayOnly}</span>
+          </div>
+          <div class="ps" style="margin-top:2px;">${ci.tip.split('|')[0].trim()}</div>
           ${dutyText ? `<div class="pd">${dutyText}</div>` : ''}
           ${holidayHtml}
         </div>
@@ -1272,4 +1366,304 @@ async function checkTodayBirthdays() {
   } catch (e) {
     console.error("Error checking today's birthdays", e);
   }
+}
+
+// ═══ PENDING BATCH UPDATES AND EXTRA UTILITIES ═══
+
+function registerPendingChange(category, name, day, status, border) {
+  const pKey = `${category}_${name}_${day}`;
+  const doc = DATA[category].find(x => x.name === name);
+  const orig = doc && doc.schedule[day] ? doc.schedule[day] : { s: 'off', b: 'none' };
+  
+  if (!pendingChanges[pKey]) {
+    pendingChanges[pKey] = { status: orig.s, border: orig.b };
+  }
+  if (status !== undefined) pendingChanges[pKey].status = status;
+  if (border !== undefined) pendingChanges[pKey].border = border;
+  
+  // Clean up if reverts to original
+  if (pendingChanges[pKey].status === orig.s && pendingChanges[pKey].border === orig.b) {
+    delete pendingChanges[pKey];
+  }
+}
+
+function updateCellUI(td, name, day, category) {
+  const pKey = `${category}_${name}_${day}`;
+  const doc = DATA[category].find(x => x.name === name);
+  let cellVal = doc && doc.schedule[day] ? doc.schedule[day] : { s: 'off', b: 'none' };
+  
+  const isPending = !!pendingChanges[pKey];
+  if (isPending) {
+    cellVal = {
+      s: pendingChanges[pKey].status !== undefined ? pendingChanges[pKey].status : cellVal.s,
+      b: pendingChanges[pKey].border !== undefined ? pendingChanges[pKey].border : cellVal.b
+    };
+  }
+  
+  const ci = cellInfo(cellVal);
+  const sInfo = ST[cellVal.s] || ST.off;
+  const bInfo = BD[cellVal.b] || BD.none;
+  
+  const isTd = td.tagName.toLowerCase() === 'td';
+  const ec = isEditMode ? ' editable' : '';
+  const pendingCls = isPending ? ' pending-cell' : '';
+  
+  if (isTd) {
+    td.className = `${ci.cls} ${ci.bcls}${ec}${pendingCls}`;
+    
+    let dotEl = td.querySelector('.duty-dot');
+    if (bInfo.dcls) {
+      if (!dotEl) {
+        dotEl = document.createElement('span');
+        td.prepend(dotEl);
+      }
+      dotEl.className = `duty-dot ${bInfo.dcls}`;
+    } else if (dotEl) {
+      dotEl.remove();
+    }
+    
+    const contentEl = td.querySelector('.cell-content');
+    if (contentEl) {
+      contentEl.innerHTML = `${sInfo.sym}<div class="ttip">${name} | יום ${day}<br>${ci.tip}</div>`;
+    }
+  } else {
+    // Personal calendar div box
+    const isToday = todayDayStrIsToday(day);
+    const bstyle = ci.bcolor !== 'transparent' ? `box-shadow:inset 0 0 0 3px ${ci.bcolor};` : '';
+    const todayStyle = isToday ? 'border: 2px dashed var(--accent);' : '';
+    const pendingOutline = isPending ? 'outline: 2px dashed hsl(35, 100%, 50%); outline-offset: -2px;' : '';
+    
+    td.style.cssText = `background:${ci.bg}; ${bstyle} ${todayStyle} ${pendingOutline}`;
+    
+    const psEl = td.querySelector('.ps');
+    if (psEl) psEl.textContent = ci.tip.split('|')[0].trim();
+    
+    let pdEl = td.querySelector('.pd');
+    const dutyText = cellVal.b !== 'none' ? BD[cellVal.b].label : '';
+    if (dutyText) {
+      if (!pdEl) {
+        pdEl = document.createElement('div');
+        pdEl.className = 'pd';
+        psEl.after(pdEl);
+      }
+      pdEl.textContent = dutyText;
+    } else if (pdEl) {
+      pdEl.remove();
+    }
+  }
+  
+  updateStatsAndSummaries();
+  updateDayHeaders();
+}
+
+function todayDayStrIsToday(d) {
+  const m = mi();
+  const today = new Date();
+  return today.getMonth() === m.month && today.getFullYear() === m.year && d === today.getDate();
+}
+
+function updateUnsavedState() {
+  const hasUnsaved = Object.keys(pendingChanges).length > 0;
+  const warning = document.getElementById('unsavedWarning');
+  const saveBtn = document.getElementById('saveChangesBtn');
+  
+  if (warning) warning.style.display = hasUnsaved ? 'inline-block' : 'none';
+  if (saveBtn) saveBtn.style.display = hasUnsaved ? 'inline-block' : 'none';
+}
+
+async function saveBatchChanges() {
+  const updates = [];
+  for (const [key, change] of Object.entries(pendingChanges)) {
+    const [category, name, day] = key.split('_');
+    updates.push({
+      category,
+      name,
+      day: parseInt(day),
+      status: change.status,
+      border: change.border
+    });
+  }
+  
+  if (updates.length === 0) return;
+  
+  try {
+    const res = await fetch('/api/schedule/batch-update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ monthKey: currentMK, updates })
+    });
+    
+    if (res.ok) {
+      pendingChanges = {};
+      updateUnsavedState();
+      await loadData();
+      alert("השינויים נשמרו בהצלחה!");
+    } else {
+      const err = await res.json();
+      alert(`שגיאה בשמירת השינויים: ${err.error}`);
+    }
+  } catch (e) {
+    console.error(e);
+    alert("שגיאה בתקשורת עם השרת");
+  }
+}
+
+// ═══ STAFF SHORTAGE WARNING ALERTS ═══
+
+function getDayShortages(d) {
+  if (!DATA || !DATA.resident) return [];
+  
+  let counts = { ward: 0, radio: 0, daytreat: 0 };
+  DATA.resident.forEach(p => {
+    const pKey = `resident_${p.name}_${d}`;
+    let s = p.schedule[d] ? p.schedule[d].s : 'off';
+    if (pendingChanges[pKey] && pendingChanges[pKey].status !== undefined) {
+      s = pendingChanges[pKey].status;
+    }
+    
+    if (s === 'ward') counts.ward++;
+    else if (s === 'radio') counts.radio++;
+    else if (s === 'daytreat') counts.daytreat++;
+  });
+  
+  const shortages = [];
+  const th = adminSettings.thresholds || { ward: 3, radio: 1, daytreat: 1 };
+  if (counts.ward < th.ward) {
+    shortages.push(`מחלקה (${counts.ward}/${th.ward})`);
+  }
+  if (counts.radio < th.radio) {
+    shortages.push(`רדיותרפיה (${counts.radio}/${th.radio})`);
+  }
+  if (counts.daytreat < th.daytreat) {
+    shortages.push(`ט.יום (${counts.daytreat}/${th.daytreat})`);
+  }
+  return shortages;
+}
+
+function updateDayHeaders() {
+  const m = mi();
+  for (let d = 1; d <= m.totalDays; d++) {
+    // Find the day header th. It's the (d + 1)-th th in the thead.
+    const th = document.querySelector(`thead th:nth-child(${d + 1})`);
+    if (!th) continue;
+    
+    const shortages = getDayShortages(d);
+    let warningSpan = th.querySelector('.shortage-warning');
+    if (shortages.length > 0) {
+      if (!warningSpan) {
+        warningSpan = document.createElement('span');
+        warningSpan.className = 'shortage-warning';
+        warningSpan.style.color = 'hsl(0, 85%, 60%)';
+        warningSpan.style.cursor = 'help';
+        warningSpan.style.marginRight = '4px';
+        warningSpan.textContent = '⚠️';
+        th.appendChild(warningSpan);
+      }
+      warningSpan.title = `חוסר במתמחים: ${shortages.join(', ')}`;
+    } else if (warningSpan) {
+      warningSpan.remove();
+    }
+  }
+}
+
+// ═══ ADMIN SECURITY & SETTINGS FUNCTIONS ═══
+
+async function submitAdminAuth() {
+  const passInp = document.getElementById('adminPasswordInput');
+  const errMsg = document.getElementById('authErrorMsg');
+  if (!passInp) return;
+  
+  const password = passInp.value;
+  try {
+    const res = await fetch('/api/admin/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    });
+    const data = await res.json();
+    if (data.success) {
+      sessionStorage.setItem('onco_admin_auth', 'true');
+      const overlay = document.getElementById('adminAuthOverlay');
+      if (overlay) overlay.style.display = 'none';
+      setEditMode(true);
+      if (errMsg) errMsg.textContent = '';
+      passInp.value = '';
+    } else {
+      if (errMsg) errMsg.textContent = data.error || "סיסמה שגויה";
+    }
+  } catch (e) {
+    console.error(e);
+    if (errMsg) errMsg.textContent = "שגיאת תקשורת עם השרת";
+  }
+}
+
+async function openAdminSettingsModal() {
+  try {
+    const res = await fetch('/api/admin/settings');
+    if (res.ok) {
+      const settings = await res.json();
+      document.getElementById('adminNewPass').value = '';
+      document.getElementById('threshWard').value = settings.thresholds.ward;
+      document.getElementById('threshRadio').value = settings.thresholds.radio;
+      document.getElementById('threshDaytreat').value = settings.thresholds.daytreat;
+      document.getElementById('adminSettingsModal').classList.add('show');
+    }
+  } catch (e) {
+    console.error(e);
+    alert("שגיאה בטעינת הגדרות המנהל");
+  }
+}
+
+async function saveAdminSettings() {
+  const newPass = document.getElementById('adminNewPass').value.trim();
+  const ward = parseInt(document.getElementById('threshWard').value);
+  const radio = parseInt(document.getElementById('threshRadio').value);
+  const daytreat = parseInt(document.getElementById('threshDaytreat').value);
+  
+  const payload = {
+    thresholds: { ward, radio, daytreat }
+  };
+  if (newPass) {
+    payload.adminPassword = newPass;
+  }
+  
+  try {
+    const res = await fetch('/api/admin/settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    if (res.ok) {
+      adminSettings = (await res.json()).settings || adminSettings;
+      closeModal('adminSettingsModal');
+      render();
+      alert("ההגדרות נשמרו בהצלחה!");
+    } else {
+      alert("שגיאה בשמירת ההגדרות");
+    }
+  } catch (e) {
+    console.error(e);
+    alert("שגיאה בתקשורת עם השרת");
+  }
+}
+
+// ═══ GOOGLE/OUTLOOK LIVE CALENDAR SYNC URL ═══
+
+function copySyncCalendarUrl() {
+  if (!personalUser) {
+    alert("נא לבחור רופא ברירת מחדל תחילה");
+    return;
+  }
+  
+  const protocol = window.location.protocol;
+  const host = window.location.host;
+  const url = `${protocol}//${host}/api/calendar/feed?doctor=${encodeURIComponent(personalUser)}`;
+  
+  navigator.clipboard.writeText(url).then(() => {
+    alert(`קישור הסנכרון הועתק ללוח!\n\n${url}\n\nכיצד לסנכרן עם היומן שלך:\n1. ביומן Google / Outlook, לחץ על 'הוספת יומן' או 'הוסף יומן מכתובת URL'.\n2. הדבק את הקישור שהועתק.\n3. היומן יתעדכן אוטומטית בכל שינוי!`);
+  }).catch(err => {
+    console.error("Failed to copy URL", err);
+    alert(`נכשלה העתקה אוטומטית. באפשרותך להעתיק את הכתובת הזו באופן ידני:\n\n${url}`);
+  });
 }

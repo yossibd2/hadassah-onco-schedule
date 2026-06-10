@@ -171,6 +171,12 @@ async function loadDatabase() {
       if (!dbData.requests) dbData.requests = [];
       if (!dbData.birthdays) dbData.birthdays = {};
       if (!dbData.emails) dbData.emails = {};
+      if (!dbData.settings) {
+        dbData.settings = {
+          adminPassword: "1234",
+          thresholds: { ward: 3, radio: 1, daytreat: 1 }
+        };
+      }
       return dbData;
     }
   }
@@ -186,6 +192,12 @@ async function loadDatabase() {
       if (!cachedData.requests) cachedData.requests = [];
       if (!cachedData.birthdays) cachedData.birthdays = {};
       if (!cachedData.emails) cachedData.emails = {};
+      if (!cachedData.settings) {
+        cachedData.settings = {
+          adminPassword: "1234",
+          thresholds: { ward: 3, radio: 1, daytreat: 1 }
+        };
+      }
       return cachedData;
     } catch (e) {
       console.error("Error reading database.json, initializing default", e);
@@ -198,6 +210,10 @@ async function loadDatabase() {
     requests: [],
     birthdays: {},
     emails: {},
+    settings: {
+      adminPassword: "1234",
+      thresholds: { ward: 3, radio: 1, daytreat: 1 }
+    },
     schedules: {
       '4-2026': getDefaultMayData()
     }
@@ -452,5 +468,98 @@ module.exports = {
     db.emails[doctor] = email;
     await saveDatabase(db);
     return true;
-  }
+  },
+
+  // ═══ BATCH UPDATES & ADMIN CONFIG METHODS ═══
+  batchUpdateCells: async (monthKey, updates) => {
+    await ensureMonth(monthKey);
+    const db = await loadDatabase();
+    const md = db.schedules[monthKey];
+    if (!md) return null;
+
+    const results = [];
+
+    for (const update of updates) {
+      const { category, name, day, status, border } = update;
+      if (!category || !name || !day) continue;
+
+      const p = md[category].find(x => x.name === name);
+      if (!p) continue;
+
+      const dayStr = String(day);
+      if (!p.schedule[dayStr]) {
+        p.schedule[dayStr] = { s: 'off', b: 'none' };
+      }
+
+      const previousValue = JSON.parse(JSON.stringify(p.schedule[dayStr]));
+      
+      if (status !== undefined) p.schedule[dayStr].s = status;
+      if (border !== undefined) p.schedule[dayStr].b = border;
+
+      const statusLabels = {
+        ward: 'מחלקה', clinic: 'מרפאה', off: 'חופש', daytreat: 'ט.יום', radio: 'רדיותרפיה',
+        basic: 'מדעי יסוד', scopuscl: 'מרפאה הר הצופים', elective: 'אלקטיב', postcall: 'אחרי תורנות',
+        augusta: 'אוגוסטה', scopusday: 'אשפוז יום הר הצופים', shabbat: 'שישי/שבת', internal: 'פנימית',
+        postcallfri: 'אחרי תורנות שישי', research: 'מחקר', reserve: 'מילואים', weoff: 'סוף שבוע'
+      };
+      const borderLabels = {
+        none: 'ללא', oncall: 'תורן 🔴', halfoncall: 'תורן חצי 🟡',
+        er_standby: 'כונן מיון ⬛', ward_standby: 'כונן מחלקה ⬜'
+      };
+
+      let changeParts = [];
+      if (status !== undefined && previousValue.s !== p.schedule[dayStr].s) {
+        const prevL = statusLabels[previousValue.s] || previousValue.s;
+        const currL = statusLabels[p.schedule[dayStr].s] || p.schedule[dayStr].s;
+        changeParts.push(`מיקום מ-"${prevL}" ל-"${currL}"`);
+      }
+      if (border !== undefined && previousValue.b !== p.schedule[dayStr].b) {
+        const prevB = borderLabels[previousValue.b] || previousValue.b;
+        const currB = borderLabels[p.schedule[dayStr].b] || p.schedule[dayStr].b;
+        changeParts.push(`תפקיד מ-"${prevB}" ל-"${currB}"`);
+      }
+
+      let notif = null;
+      if (changeParts.length > 0) {
+        const changeText = changeParts.join(', ');
+        notif = {
+          id: Date.now().toString() + '-' + Math.random().toString(36).substring(2, 9),
+          doctor: name,
+          monthKey,
+          day,
+          changeText,
+          editor: 'מנהל',
+          timestamp: new Date().toISOString()
+        };
+        db.notifications.push(notif);
+        if (db.notifications.length > 1000) db.notifications.shift();
+      }
+
+      results.push({
+        category,
+        name,
+        day,
+        s: p.schedule[dayStr].s,
+        b: p.schedule[dayStr].b,
+        notification: notif
+      });
+    }
+
+    await saveDatabase(db);
+    return results;
+  },
+
+  getAdminSettings: async () => {
+    const db = await loadDatabase();
+    return db.settings;
+  },
+
+  updateAdminSettings: async (settings) => {
+    const db = await loadDatabase();
+    db.settings = { ...db.settings, ...settings };
+    await saveDatabase(db);
+    return db.settings;
+  },
+
+  loadDatabase: loadDatabase
 };

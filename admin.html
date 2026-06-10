@@ -12,7 +12,18 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
-  
+  <!-- Admin Authentication Lock Screen -->
+  <div id="adminAuthOverlay" class="admin-auth-overlay">
+    <div class="auth-card">
+      <h2>🔐 כניסת מנהל מערכת</h2>
+      <p style="font-size:0.9em; margin-bottom:12px; color:var(--text-muted); text-align:center;">נא להזין סיסמת מנהל כדי להציג ולערוך את סידור העבודה:</p>
+      <input type="password" id="adminPasswordInput" placeholder="סיסמת אדמין" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); outline:none; margin-bottom:12px; background:var(--bg); color:var(--text-main); font-family:inherit; text-align:center;">
+      <button class="btn-primary" onclick="submitAdminAuth()" style="width:100%; justify-content:center; padding:10px;">כניסה ✓</button>
+      <div id="authErrorMsg" class="auth-error-msg" style="color:hsl(0, 75%, 45%); font-size:0.85em; margin-top:8px; font-weight:700; text-align:center;"></div>
+      <button class="btn-cancel" onclick="exitAdminMode()" style="margin-top:10px; width:100%; justify-content:center; padding:10px;">חזרה למסך צפייה בלבד 🚪</button>
+    </div>
+  </div>
+
   <!-- Collaborative Realtime Sync Banner -->
   <div id="syncStatus" class="sync-banner connected">
     <span class="pulse-dot"></span>
@@ -36,6 +47,7 @@
         <button onclick="toggleTheme()" title="מצב יום/לילה">🌓</button>
         <button onclick="window.print()" title="הדפסת סידור">🖨️</button>
         <button onclick="openSettings()" title="הגדרות משתמש">⚙️</button>
+        <button onclick="openAdminSettingsModal()" title="הגדרות מנהל מערכת">⚙️🛠️</button>
         <button onclick="exitAdminMode()" title="יציאה למצב צפייה בלבד" style="width:auto; padding:0 10px; font-weight:700; border-color:hsl(0, 75%, 45%); color:hsl(0, 75%, 45%);">יציאה 🚪</button>
       </div>
     </div>
@@ -131,10 +143,12 @@
       </div>
 
       <span class="paint-tip">💡 <b>מצב ציור פעיל:</b> גררו את העכבר על פני התאים בטבלה כדי לצבוע אותם במהירות!</span>
+      <span class="unsaved-warning" id="unsavedWarning" style="display:none; color:hsl(35, 100%, 46%); font-weight:700; margin-left:15px; margin-right:15px; animation: pulse-edit 2s infinite;">⚠️ ישנם שינויים שלא נשמרו!</span>
 
       <div class="toolbar-actions">
         <button class="btn-green" onclick="openAddStaffModal()">➕ הוספת רופא/ה</button>
         <button class="btn-primary" onclick="openBirthdaysModal()" style="background:linear-gradient(135deg, hsl(330, 85%, 55%), hsl(280, 85%, 50%)); color:#fff; font-weight:700;">🎂 ימי הולדת</button>
+        <button class="btn-primary" id="saveChangesBtn" onclick="saveBatchChanges()" style="display:none; font-weight:700; background:var(--primary);">💾 שמור שינויים</button>
         <button class="btn-danger" onclick="confirmResetDatabase()">🔄 איפוס מערכת</button>
       </div>
     </div>
@@ -241,13 +255,64 @@
     </div>
   </div>
 
+  <!-- Admin Settings Modal -->
+  <div class="modal-overlay" id="adminSettingsModal">
+    <div class="modal">
+      <h2>🛠️ הגדרות מנהל מערכת</h2>
+      
+      <div class="form-group">
+        <label for="adminNewPass">סיסמת מנהל חדשה:</label>
+        <input type="password" id="adminNewPass" placeholder="השאר ריק כדי לא לשנות">
+      </div>
+
+      <h3 style="margin-top: 15px; font-size: 0.9em; border-bottom: 1px solid var(--border); padding-bottom: 4px;">🚨 סף התראות מחסור במתמחים</h3>
+      
+      <div class="form-group" style="margin-top: 10px;">
+        <label for="threshWard">מינימום מתמחים במחלקה:</label>
+        <input type="number" id="threshWard" min="0" max="10">
+      </div>
+
+      <div class="form-group">
+        <label for="threshRadio">מינימום מתמחים ברדיותרפיה:</label>
+        <input type="number" id="threshRadio" min="0" max="10">
+      </div>
+
+      <div class="form-group">
+        <label for="threshDaytreat">מינימום מתמחים באשפוז יום:</label>
+        <input type="number" id="threshDaytreat" min="0" max="10">
+      </div>
+      
+      <div class="modal-btns" style="margin-top: 20px;">
+        <button class="btn-cancel" onclick="closeModal('adminSettingsModal')">ביטול</button>
+        <button class="btn-primary" onclick="saveAdminSettings()">שמור הגדרות ✓</button>
+      </div>
+    </div>
+  </div>
+
   <!-- JavaScript Application Controller -->
   <script src="holidays.js"></script>
   <script src="app.js"></script>
   
   <script>
     function checkAuth() {
-      setEditMode(true); // Always enable editing tools in admin view
+      const isAuthed = sessionStorage.getItem('onco_admin_auth') === 'true';
+      const overlay = document.getElementById('adminAuthOverlay');
+      if (isAuthed) {
+        if (overlay) overlay.style.display = 'none';
+        setEditMode(true);
+      } else {
+        if (overlay) overlay.style.display = 'flex';
+        // Focus the input
+        setTimeout(() => {
+          const inp = document.getElementById('adminPasswordInput');
+          if (inp) {
+            inp.focus();
+            inp.addEventListener('keypress', function(e) {
+              if (e.key === 'Enter') submitAdminAuth();
+            });
+          }
+        }, 100);
+      }
     }
     
     function exitAdminMode() {

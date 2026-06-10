@@ -1351,3 +1351,51 @@ tr.summary-row.sr-ward td.nm { color: hsl(0, 0%, 55%); }
   gap: 8px;
   align-items: center;
 }
+
+/* Admin Auth Screen Overlay */
+.admin-auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.7);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 35px 30px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.auth-card h2 {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+.auth-error-msg {
+  color: hsl(0, 75%, 45%);
+  font-size: 0.85em;
+  margin-top: 8px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Pending unsaved cell edits */
+td.pending-cell {
+  outline: 2px dashed hsl(35, 100%, 50%) !important;
+  outline-offset: -2px;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(230, 124, 0, 0.05) 5px, rgba(230, 124, 0, 0.05) 10px) !important;
+}
+
+[data-theme="dark"] td.pending-cell {
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255, 167, 38, 0.05) 5px, rgba(255, 167, 38, 0.05) 10px) !important;
+}
