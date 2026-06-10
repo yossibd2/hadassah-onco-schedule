@@ -164,7 +164,7 @@
     <!-- Main Navigation Tabs -->
     <div class="tabs-navigation">
       <div class="tabs">
-        <button id="tab-seniors" class="tab" onclick="switchTab('seniors')">👨‍⚕️ בכירים ומומחים</button>
+        <button id="tab-seniors" class="tab" onclick="switchTab('seniors')">👨‍⚕️ בכירים</button>
         <button id="tab-resident" class="tab" onclick="switchTab('resident')">📚 מתמחים</button>
         <button id="tab-all" class="tab active" onclick="switchTab('all')">📊 כולם</button>
       </div>
@@ -205,6 +205,11 @@
         </select>
         <p class="form-help">הבחירה תישמר בדפדפן זה והלוח האישי שלך ייטען אוטומטית בכל כניסה.</p>
       </div>
+
+      <div class="form-group" style="margin-top: 15px;">
+        <label for="userEmailInp">כתובת אימייל לקבלת התראות:</label>
+        <input type="email" id="userEmailInp" placeholder="doctor@example.com">
+      </div>
       
       <div class="modal-btns">
         <button class="btn-cancel" onclick="closeModal('settingsModal')">ביטול</button>
@@ -226,7 +231,7 @@
       <div class="form-group">
         <label for="newStaffCat">קטגוריה:</label>
         <select id="newStaffCat">
-          <option value="seniors">בכירים ומומחים</option>
+          <option value="seniors">בכירים</option>
           <option value="resident">מתמחים</option>
         </select>
       </div>

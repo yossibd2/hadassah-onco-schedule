@@ -98,7 +98,7 @@
     <!-- Main Navigation Tabs -->
     <div class="tabs-navigation">
       <div class="tabs">
-        <button id="tab-seniors" class="tab" onclick="switchTab('seniors')">👨‍⚕️ בכירים ומומחים</button>
+        <button id="tab-seniors" class="tab" onclick="switchTab('seniors')">👨‍⚕️ בכירים</button>
         <button id="tab-resident" class="tab" onclick="switchTab('resident')">📚 מתמחים</button>
         <button id="tab-all" class="tab active" onclick="switchTab('all')">📊 כולם</button>
       </div>
@@ -173,6 +173,11 @@
       <div class="form-group">
         <label for="reqDetails">פרטים והסבר:</label>
         <textarea id="reqDetails" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--border); border-radius:8px; background:var(--bg); color:var(--text-main); font-family:inherit; outline:none; resize:vertical;" placeholder="פירוט הבקשה (שם הרופא/ה להחלפה, ימי חופש מדויקים וכד')"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="reqAttachment">צירוף קובץ/תמונה (אופציונלי):</label>
+        <input type="file" id="reqAttachment" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
       </div>
       
       <div class="modal-btns">

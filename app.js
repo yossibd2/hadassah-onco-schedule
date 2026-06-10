@@ -324,7 +324,7 @@ function getStaffList() {
     return { list, label: 'מתמחים' };
   }
   
-  const labels = { seniors: 'בכירים ומומחים', resident: 'מתמחים' };
+  const labels = { seniors: 'בכירים', resident: 'מתמחים' };
   return { list: DATA[curTab] || [], label: labels[curTab] };
 }
 
@@ -339,7 +339,7 @@ function renderTable(list, label) {
     
     const dateObj = new Date(m.year, m.month, d);
     const hebDateFull = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj);
-    const hebDayOnly = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric' }).format(dateObj);
+    const hebDayOnly = hebDayLetter(dateObj);
     
     const shortages = getDayShortages(d);
     const warningHtml = shortages.length > 0
@@ -348,15 +348,15 @@ function renderTable(list, label) {
       
     const tooltipTexts = [hebDateFull];
     if (dayHols.length > 0) tooltipTexts.push(dayHols.join(', '));
-    const holIndicator = dayHols.length > 0 
-      ? `<span class="holiday-indicator">🎉</span>` 
+    const holHtml = dayHols.length > 0
+      ? `<span class="day-holiday-text" style="font-size:0.55em; color:hsl(0, 85%, 60%); display:block; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:60px; margin-top:2px;" title="${dayHols.join(', ')}">${dayHols[0].replace(' ✡️','').replace(' ☪️','').replace(' ✝️','')}</span>`
       : '';
       
     h += `<th class="day-header${wc}" title="${tooltipTexts.join(' | ')}">
             <span class="dn">${d}</span>
             <span class="dw">${DOW[dowOf(d, m)]}</span>
             <span class="dheb" style="font-size:0.65em; display:block; opacity:0.8; font-weight:normal;">${hebDayOnly}</span>
-            ${warningHtml} ${holIndicator}
+            ${warningHtml} ${holHtml}
           </th>`;
   }
   h += '</tr></thead><tbody>';
@@ -505,14 +505,14 @@ function changeMonth() {
 function setEditMode(edit) {
   isEditMode = edit;
   
-  // Update mode buttons
-  document.getElementById('viewModeBtn').classList.toggle('active', !edit);
-  document.getElementById('editModeBtn').classList.toggle('active', edit);
+  const viewBtn = document.getElementById('viewModeBtn');
+  const editBtn = document.getElementById('editModeBtn');
+  const toolbar = document.getElementById('editToolbar');
   
-  // Show/hide toolbar
-  document.getElementById('editToolbar').classList.toggle('show', edit);
+  if (viewBtn) viewBtn.classList.toggle('active', !edit);
+  if (editBtn) editBtn.classList.toggle('active', edit);
+  if (toolbar) toolbar.classList.toggle('show', edit);
   
-  // Trigger table re-render to attach/detach editing handlers
   render();
 }
 
@@ -786,7 +786,7 @@ function populateDefaultUserSelector() {
   sel.innerHTML = '<option value="">-- ללא משתמש מוגדר --</option>';
   
   if (!DATA) return;
-  const cats = { seniors: 'בכירים ומומחים', resident: 'מתמחים' };
+  const cats = { seniors: 'בכירים', resident: 'מתמחים' };
   
   Object.entries(cats).forEach(([k, lbl]) => {
     const g = document.createElement('optgroup');
@@ -955,7 +955,7 @@ async function showPersonalView() {
       // Hebrew dates
       const dateObj = new Date(m.year, m.month, d);
       const hebDateFull = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj);
-      const hebDayOnly = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric' }).format(dateObj);
+      const hebDayOnly = hebDayLetter(dateObj);
       
       const holidayHtml = dayHols.length > 0
         ? `<div class="pcal-holiday" title="${dayHols.join(', ')}">${dayHols[0]}</div>`
@@ -1061,6 +1061,8 @@ function triggerDesktopNotification(title, body) {
 function openRequestModal() {
   document.getElementById('reqDay').value = '';
   document.getElementById('reqDetails').value = '';
+  const fileInp = document.getElementById('reqAttachment');
+  if (fileInp) fileInp.value = '';
   document.getElementById('requestModal').classList.add('show');
 }
 
@@ -1068,35 +1070,59 @@ async function submitRequest() {
   const type = document.getElementById('reqType').value;
   const dayVal = document.getElementById('reqDay').value.trim();
   const details = document.getElementById('reqDetails').value.trim();
+  const fileInp = document.getElementById('reqAttachment');
   
   if (!personalUser) {
     alert("נא להגדיר משתמש אישי תחילה בהגדרות");
     return;
   }
   
-  const payload = {
-    doctor: personalUser,
-    type,
-    details,
-    targetDay: dayVal ? parseInt(dayVal) : null,
-    targetMonth: currentMK
+  const file = fileInp && fileInp.files ? fileInp.files[0] : null;
+  
+  const sendData = async (attachmentBase64) => {
+    const payload = {
+      doctor: personalUser,
+      type,
+      details,
+      targetDay: dayVal ? parseInt(dayVal) : null,
+      targetMonth: currentMK,
+      attachment: attachmentBase64 || null
+    };
+    
+    try {
+      const res = await fetch('/api/requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModal('requestModal');
+        if (fileInp) fileInp.value = '';
+        alert("הבקשה נשלחה בהצלחה למנהל!");
+      } else {
+        const err = await res.json();
+        alert(`שגיאה בשליחת הבקשה: ${err.error}`);
+      }
+    } catch (e) {
+      console.error("Error submitting request", e);
+    }
   };
   
-  try {
-    const res = await fetch('/api/requests', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (res.ok) {
-      closeModal('requestModal');
-      alert("הבקשה נשלחה בהצלחה למנהל!");
-    } else {
-      const err = await res.json();
-      alert(`שגיאה בשליחת הבקשה: ${err.error}`);
+  if (file) {
+    if (file.size > 8 * 1024 * 1024) {
+      alert("הקובץ המצורף גדול מדי. הגודל המרבי המותר הוא 8MB");
+      return;
     }
-  } catch (e) {
-    console.error("Error submitting request", e);
+    const reader = new FileReader();
+    reader.onload = function() {
+      sendData(reader.result);
+    };
+    reader.onerror = function() {
+      alert("שגיאה בקריאת הקובץ המצורף");
+    };
+    reader.readAsDataURL(file);
+  } else {
+    await sendData(null);
   }
 }
 
@@ -1135,6 +1161,34 @@ async function loadAdminRequests() {
         statusHtml = `<div class="req-status-rejected">נדחה ✕</div>`;
       }
       
+      let attachHtml = '';
+      if (req.attachment) {
+        const isImg = req.attachment.startsWith('data:image/');
+        if (isImg) {
+          attachHtml = `
+            <div style="margin-top:8px; border-top:1px dashed var(--border); padding-top:6px;">
+              <strong>קובץ מצורף:</strong>
+              <a href="${req.attachment}" target="_blank">
+                <img src="${req.attachment}" style="max-width:100%; max-height:120px; border-radius:6px; border:1px solid var(--border); margin-top:4px; display:block; cursor:zoom-in;">
+              </a>
+            </div>
+          `;
+        } else {
+          const match = req.attachment.match(/^data:(.*);base64,/);
+          let linkLabel = '📥 הורדת קובץ מצורף';
+          if (match && match[1]) {
+            if (match[1].includes('pdf')) linkLabel = '📄 צפייה בטופס PDF מצורף';
+            else if (match[1].includes('word') || match[1].includes('officedocument')) linkLabel = '📝 הורדת מסמך Word מצורף';
+          }
+          attachHtml = `
+            <div style="margin-top:8px; border-top:1px dashed var(--border); padding-top:6px; font-size:0.85em;">
+              <strong>קובץ מצורף:</strong>
+              <a href="${req.attachment}" download="attachment" style="color:var(--primary); font-weight:700; text-decoration:underline; display:block; margin-top:2px;">${linkLabel}</a>
+            </div>
+          `;
+        }
+      }
+      
       return `
         <div class="request-card">
           <div class="req-header">
@@ -1144,7 +1198,8 @@ async function loadAdminRequests() {
           <div class="req-body">
             <div><strong>יעד:</strong> ${targetStr}</div>
             ${req.details ? `<div><strong>פרטים:</strong> ${req.details}</div>` : ''}
-            <div style="font-size:0.75em; color:var(--text-muted); margin-top:4px;">${dateStr}</div>
+            ${attachHtml}
+            <div style="font-size:0.75em; color:var(--text-muted); margin-top:6px;">${dateStr}</div>
           </div>
           ${statusHtml}
         </div>
@@ -1666,4 +1721,28 @@ function copySyncCalendarUrl() {
     console.error("Failed to copy URL", err);
     alert(`נכשלה העתקה אוטומטית. באפשרותך להעתיק את הכתובת הזו באופן ידני:\n\n${url}`);
   });
+}
+
+function hebDayLetter(dateObj) {
+  try {
+    const formatted = new Intl.DateTimeFormat('he-IL-u-ca-hebrew', { day: 'numeric', month: 'long' }).format(dateObj);
+    const num = parseInt(formatted.split(' ')[0]);
+    if (isNaN(num)) return formatted.split(' ')[0]; // Fallback if already letters
+    
+    const tens = ['', 'י', 'כ', 'ל'];
+    const ones = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט'];
+    if (num === 15) return 'ט"ו';
+    if (num === 16) return 'ט"ז';
+    const t = Math.floor(num / 10);
+    const o = num % 10;
+    let res = tens[t] + ones[o];
+    if (res.length > 1) {
+      res = res.slice(0, -1) + '"' + res.slice(-1);
+    } else if (res.length === 1) {
+      res = res + "'";
+    }
+    return res;
+  } catch (e) {
+    return '';
+  }
 }

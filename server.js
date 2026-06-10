@@ -11,7 +11,7 @@ const wss = new WebSocket.Server({ server });
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 // Determine static file directory: use 'public' subfolder if it exists, otherwise root
 const publicDir = fs.existsSync(path.join(__dirname, 'public')) 
@@ -165,12 +165,12 @@ app.get('/api/notifications', async (req, res) => {
 
 // Submit a request (from doctor)
 app.post('/api/requests', async (req, res) => {
-  const { doctor, type, details, targetDay, targetMonth } = req.body;
+  const { doctor, type, details, targetDay, targetMonth, attachment } = req.body;
   if (!doctor || !type) {
     return res.status(400).json({ error: "Missing required fields" });
   }
   try {
-    const request = await db.addRequest(doctor, type, details, targetDay, targetMonth);
+    const request = await db.addRequest(doctor, type, details, targetDay, targetMonth, attachment);
     broadcast({ type: 'new_request', data: request });
     res.json({ success: true, request });
   } catch (e) {

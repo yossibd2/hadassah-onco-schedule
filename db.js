@@ -403,17 +403,41 @@ module.exports = {
       await ensureInit();
       return;
     }
-    if (fs.existsSync(DB_FILE)) {
+    
+    const initial = {
+      notifications: [],
+      requests: [],
+      birthdays: {},
+      emails: {},
+      settings: {
+        adminPassword: "1234",
+        thresholds: { ward: 3, radio: 1, daytreat: 1 }
+      },
+      schedules: {
+        '4-2026': getDefaultMayData()
+      }
+    };
+
+    if (fs.existsSync(JUNE_SEED_FILE)) {
       try {
-        fs.unlinkSync(DB_FILE);
-      } catch (e) {}
+        const juneRaw = fs.readFileSync(JUNE_SEED_FILE, 'utf-8');
+        const juneData = JSON.parse(juneRaw);
+        if (juneData['5-2026']) {
+          initial.schedules['5-2026'] = juneData['5-2026'];
+          console.log("Seeded June 2026 schedule from june_schedule.json");
+        }
+      } catch (e) {
+        console.error("Error seeding June data", e);
+      }
     }
-    cachedData = null;
-    return await loadDatabase();
+
+    cachedData = initial;
+    await saveDatabase(cachedData);
+    return cachedData;
   },
 
   // ═══ REQUEST SYSTEM METHODS ═══
-  addRequest: async (doctor, type, details, targetDay, targetMonth) => {
+  addRequest: async (doctor, type, details, targetDay, targetMonth, attachment) => {
     const db = await loadDatabase();
     const reqObj = {
       id: Date.now().toString() + '-' + Math.random().toString(36).substring(2, 9),
@@ -422,6 +446,7 @@ module.exports = {
       details: details || '',
       targetDay: targetDay || null,
       targetMonth: targetMonth || null,
+      attachment: attachment || null,
       status: 'pending',
       timestamp: new Date().toISOString()
     };
