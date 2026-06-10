@@ -342,7 +342,7 @@ function renderTable(list, label) {
     const hebDayOnly = hebDayLetter(dateObj);
     
     const shortages = getDayShortages(d);
-    const warningHtml = shortages.length > 0
+    const warningHtml = (isEditMode && shortages.length > 0)
       ? `<span class="shortage-warning" title="חוסר במתמחים: ${shortages.join(', ')}" style="color:hsl(0, 85%, 60%); cursor:help; margin-right:4px;">⚠️</span>`
       : '';
       
@@ -574,8 +574,8 @@ function getCategoryForName(name) {
 
 // ═══ CELL PICKER LOGIC (ON SINGLE CLICK) ═══
 let activePickerCell = null;
-function cellClick(td, ev) {
-  if (paintStatus || paintBorder) return; // Ignore click picker if in paint/drag mode
+function cellClick(td, ev, force) {
+  if (!force && (paintStatus || paintBorder)) return; // Ignore click picker if in paint/drag mode and not forced
   
   ev.stopPropagation();
   closeCellPicker();
@@ -606,8 +606,9 @@ function cellClick(td, ev) {
   picker.innerHTML = h;
   
   const rect = td.getBoundingClientRect();
-  picker.style.top = Math.min(rect.bottom + window.scrollY + 2, window.innerHeight + window.scrollY - 300) + 'px';
-  picker.style.left = Math.max(rect.left + window.scrollX, 10) + 'px';
+  // Viewport-relative positioning since picker has position: fixed!
+  picker.style.top = Math.min(rect.bottom + 2, window.innerHeight - 300) + 'px';
+  picker.style.left = Math.min(Math.max(rect.left, 10), window.innerWidth - 220) + 'px';
   picker.classList.add('show');
   activePickerCell = td;
 }
@@ -621,12 +622,12 @@ document.addEventListener('click', closeCellPicker);
 
 function cellRightClick(td, ev) {
   ev.preventDefault();
-  cellClick(td, ev);
+  cellClick(td, ev, true);
 }
 
 function personalCellRightClick(div, ev, doctor, day) {
   ev.preventDefault();
-  cellClick(div, ev);
+  cellClick(div, ev, true);
 }
 
 function personalCellClick(div, ev, doctor, day) {
@@ -1604,7 +1605,7 @@ function updateDayHeaders() {
     
     const shortages = getDayShortages(d);
     let warningSpan = th.querySelector('.shortage-warning');
-    if (shortages.length > 0) {
+    if (isEditMode && shortages.length > 0) {
       if (!warningSpan) {
         warningSpan = document.createElement('span');
         warningSpan.className = 'shortage-warning';
