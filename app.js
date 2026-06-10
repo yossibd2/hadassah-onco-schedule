@@ -1276,10 +1276,10 @@ function exportToICS() {
       const dutyLabel = BD[cellVal.b] ? BD[cellVal.b].label : '';
       
       let summaryParts = [];
-      if (isWork) summaryParts.push(`מיקום: ${locLabel}`);
+      if (isWork) summaryParts.push(locLabel);
       if (isDuty) summaryParts.push(dutyLabel);
       
-      const summary = `תורנות אונקולוגיה - ${summaryParts.join(' | ')}`;
+      const summary = summaryParts.join(' | ');
       const uid = `onco-sched-${currentMK}-${d}-${encodeURIComponent(personalUser)}@hadassah.org`;
       
       icsLines.push('BEGIN:VEVENT');

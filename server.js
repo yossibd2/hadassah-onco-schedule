@@ -372,10 +372,10 @@ app.get('/api/calendar/feed', async (req, res) => {
           const dutyLabel = BD[cellVal.b] || '';
           
           let summaryParts = [];
-          if (isWork) summaryParts.push(`מיקום: ${locLabel}`);
+          if (isWork) summaryParts.push(locLabel);
           if (isDuty) summaryParts.push(dutyLabel);
           
-          const summary = `תורנות אונקולוגיה - ${summaryParts.join(' | ')}`;
+          const summary = summaryParts.join(' | ');
           const uid = `onco-sched-sub-${monthKey}-${d}-${encodeURIComponent(doctor)}@hadassah.org`;
           
           icsLines.push('BEGIN:VEVENT');
